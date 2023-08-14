@@ -33,8 +33,6 @@ class MyApp extends StatelessWidget {
         ),
         routerConfig: newRouter,
         builder: (context, widget) {
-          // registerAppKey(newRouter.routerDelegate.navigatorKey);
-
           return MediaQuery(
             data: MediaQuery.of(context).copyWith(textScaleFactor: 1),
             child: widget!,
