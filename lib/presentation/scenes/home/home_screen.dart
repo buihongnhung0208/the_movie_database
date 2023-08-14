@@ -1,7 +1,6 @@
 import 'package:base_scaffold/base_scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:the_movie_database/presentation/common/card_item.dart';
 import 'package:the_movie_database/presentation/common/short_info_view.dart';
@@ -12,21 +11,35 @@ import 'package:the_movie_database/resources/resources.dart';
 import 'bloc/home_cubit.dart';
 
 class HomeScreen extends StatelessWidget {
+  final void Function(BuildContext, String)? navigateToList;
+  final void Function(BuildContext, String) navigateToDetail;
+
   const HomeScreen({
     super.key,
+    this.navigateToList,
+    required this.navigateToDetail,
   });
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => HomeCubit(),
-      child: const _NewHomeScreenBody(),
+      child: _NewHomeScreenBody(
+        navigateToList: navigateToList,
+        navigateToDetail: navigateToDetail,
+      ),
     );
   }
 }
 
 class _NewHomeScreenBody extends StatefulWidget {
-  const _NewHomeScreenBody();
+  const _NewHomeScreenBody({
+    this.navigateToList,
+    required this.navigateToDetail,
+  });
+
+  final void Function(BuildContext, String)? navigateToList;
+  final void Function(BuildContext, String) navigateToDetail;
 
   @override
   State<_NewHomeScreenBody> createState() => _NewHomeScreenBodyState();
@@ -95,7 +108,7 @@ class _NewHomeScreenBodyState extends State<_NewHomeScreenBody> {
       ),
       button: GestureDetector(
         onTap: () {
-          context.go('/popular');
+          widget.navigateToList?.call(context, "Popular");
         },
         child: Row(
           mainAxisSize: MainAxisSize.min,
@@ -118,7 +131,7 @@ class _NewHomeScreenBodyState extends State<_NewHomeScreenBody> {
           children: [
             Dimens.size_8.horizontalSpace,
             ...list.map(
-              (item) => const CardItem(),
+              (item) => CardItem(navigateToDetail: widget.navigateToDetail),
             ),
           ],
         ),
