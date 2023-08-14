@@ -15,7 +15,7 @@ class ListHomeView extends StatelessWidget {
 
   final Widget title;
   final Widget button;
-  final double? padding;
+  final double padding;
   final Color backgroundColor;
   final Widget child;
 
@@ -29,9 +29,9 @@ class ListHomeView extends StatelessWidget {
         children: [
           Container(
             padding: EdgeInsets.only(
-              top: padding!.h,
-              left: padding!.w,
-              right: padding!.w,
+              top: padding.h,
+              left: padding.w,
+              right: padding.w,
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
