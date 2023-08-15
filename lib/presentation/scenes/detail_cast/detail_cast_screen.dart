@@ -1,5 +1,6 @@
 import 'package:base_scaffold/base_scaffold.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -34,6 +35,7 @@ class _DetailCastScreenBody extends StatefulWidget {
 }
 
 class _DetailCastScreenBodyState extends State<_DetailCastScreenBody> {
+  late List<String> banners =["https://www.themoviedb.org/t/p/original/tvPPRGzAzdQFhlKzLbMO1EpuTJI.jpg","https://www.themoviedb.org/t/p/original/dMbd2Rx9ZD5Gl9VXAkGcIKGrAxJ.jpg"];
   @override
   void initState() {
     super.initState();
@@ -64,6 +66,46 @@ class _DetailCastScreenBodyState extends State<_DetailCastScreenBody> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  CarouselSlider.builder(
+                    options: CarouselOptions(
+                        autoPlay: banners.length != 1,
+                        autoPlayInterval: const Duration(seconds: 2),
+                        enlargeCenterPage: true,
+                        aspectRatio: 16 / 9,
+                        viewportFraction: 1,
+                        onPageChanged: (index, reason) {
+                        }),
+                    disableGesture: true,
+                    itemCount: banners.length,
+                    itemBuilder: (context, index, realIndex) {
+                      return GestureDetector(
+                        onTap: () {
+
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                            shape: BoxShape.rectangle,
+                            borderRadius: BorderRadius.circular(Dimens.size_8).r,
+                          ),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(Dimens.size_8).r,
+                            child: CachedNetworkImage(
+                              imageUrl: banners[index],
+                              width: Dimens.size_358.w,
+                              height: Dimens.size_166.w,
+                              fit: BoxFit.cover,
+                              maxHeightDiskCache: Dimens.size_498.w.toInt(),
+                              maxWidthDiskCache: 1074.w.toInt(),
+                              memCacheHeight: Dimens.size_498.w.toInt(),
+                              memCacheWidth: 1074.w.toInt(),
+
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                  Dimens.size_10.verticalSpace,
                   Text(
                     "Biography",
                     style: CoreResources.textStyles.inter.mediumTextBold.copyWith(

@@ -1,6 +1,7 @@
 import 'package:base_scaffold/base_scaffold.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:the_movie_database/presentation/common/card_item.dart';
@@ -9,15 +10,19 @@ import 'package:the_movie_database/presentation/scenes/home/bloc/home_cubit.dart
 import 'package:the_movie_database/resources/colors.dart';
 import 'package:the_movie_database/resources/dimens.dart';
 import 'package:the_movie_database/resources/resources.dart';
+import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class DetailMovieScreen extends StatelessWidget {
   final void Function(BuildContext, String)? navigateToDetail;
   final void Function(BuildContext, String)? navigateToDetailCast;
+  final void Function(BuildContext context, String id, String url, String? title)?
+      navigateToWebView;
 
   const DetailMovieScreen({
     super.key,
     this.navigateToDetail,
     this.navigateToDetailCast,
+    this.navigateToWebView,
   });
 
   @override
@@ -27,6 +32,7 @@ class DetailMovieScreen extends StatelessWidget {
       child: _DetailMovieScreenBody(
         navigateToDetail: navigateToDetail,
         navigateToDetailCast: navigateToDetailCast,
+        navigateToWebView: navigateToWebView,
       ),
     );
   }
@@ -35,10 +41,13 @@ class DetailMovieScreen extends StatelessWidget {
 class _DetailMovieScreenBody extends StatefulWidget {
   final void Function(BuildContext, String)? navigateToDetail;
   final void Function(BuildContext, String)? navigateToDetailCast;
+  final void Function(BuildContext context, String id, String url, String? title)?
+      navigateToWebView;
 
   const _DetailMovieScreenBody({
     this.navigateToDetail,
     this.navigateToDetailCast,
+    this.navigateToWebView,
   });
 
   @override
@@ -46,8 +55,22 @@ class _DetailMovieScreenBody extends StatefulWidget {
 }
 
 class _DetailMovieScreenBodyState extends State<_DetailMovieScreenBody> {
+  late YoutubePlayerController _youtubePlayerController;
+
   @override
   void initState() {
+    SystemChrome.setPreferredOrientations(DeviceOrientation.values);
+    final videoId = YoutubePlayer.convertUrlToId("https://youtu.be/VyHV0BRtdxo");
+    _youtubePlayerController = YoutubePlayerController(
+      initialVideoId: videoId ?? '',
+      flags: const YoutubePlayerFlags(
+        autoPlay: false,
+        disableDragSeek: true,
+        loop: false,
+        enableCaption: false,
+      ),
+    );
+
     super.initState();
   }
 
@@ -77,6 +100,7 @@ class _DetailMovieScreenBodyState extends State<_DetailMovieScreenBody> {
                       color: Colors.white,
                     ),
                   ),
+                  Dimens.size_20.verticalSpace,
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -122,7 +146,7 @@ class _DetailMovieScreenBodyState extends State<_DetailMovieScreenBody> {
                                       )),
                                   child: Center(
                                     child: Text(
-                                      "7.9",
+                                    "7.9",
                                       style: CoreResources.textStyles.inter.mediumTextBold.copyWith(
                                         color: Colors.white,
                                       ),
@@ -212,6 +236,27 @@ class _DetailMovieScreenBodyState extends State<_DetailMovieScreenBody> {
                       color: Colors.white,
                     ),
                   ),
+                  Dimens.size_5.verticalSpace,
+                  YoutubePlayer(
+                    controller: _youtubePlayerController,
+                    showVideoProgressIndicator: true,
+                    progressIndicatorColor: Colors.blueAccent,
+                    topActions: <Widget>[
+                      const SizedBox(width: 8.0),
+                      Expanded(
+                        child: Text(
+                          _youtubePlayerController.metadata.title,
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 18.0,
+                          ),
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 1,
+                        ),
+                      ),
+                    ],
+                  ),
+                  Dimens.size_10.verticalSpace,
                   _topBilledCast(),
                   Dimens.size_10.verticalSpace,
                   _recommendations(),
@@ -330,5 +375,17 @@ class _DetailMovieScreenBodyState extends State<_DetailMovieScreenBody> {
         ),
       ),
     );
+  }
+
+  @override
+  void deactivate() {
+    _youtubePlayerController.pause();
+    super.deactivate();
+  }
+
+  @override
+  void dispose() {
+    _youtubePlayerController.dispose();
+    super.dispose();
   }
 }

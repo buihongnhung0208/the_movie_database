@@ -15,6 +15,7 @@ class MainRoutes {
   static const listMovies = 'listMovies';
   static const detailMovie = 'detailMovie';
   static const detailCast = 'detailCast';
+  static const webView = 'webView';
 }
 
 final newRouter = GoRouter(
