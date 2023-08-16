@@ -1,4 +1,4 @@
-M-Connect eDoc
+the-movie-database
 
 Prerequisites
 Install `flutter_gen` pub
