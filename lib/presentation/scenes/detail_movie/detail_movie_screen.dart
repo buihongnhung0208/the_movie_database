@@ -165,7 +165,8 @@ class _DetailMovieScreenBodyState extends State<_DetailMovieScreenBody> {
                                   child: Center(
                                     child: Text(
                                       "EN",
-                                      style: CoreResources.textStyles.inter.mediumTextBold.copyWith(
+                                      style:
+                                          CoreResources.textStyles.inter.mediumTextBold.copyWith(
                                         color: Colors.white,
                                       ),
                                     ),

@@ -184,11 +184,11 @@ class InterTextStyles {
       );
 
   TextStyle get extraSmallTextSemibold => TextStyle(
-    fontSize: Dimens.size_12.sp,
-    // fontFamily: Fonts.inter,
-    fontWeight: FontWeight.w600,
-    height: 1.6,
-  );
+        fontSize: Dimens.size_12.sp,
+        // fontFamily: Fonts.inter,
+        fontWeight: FontWeight.w600,
+        height: 1.6,
+      );
 
   TextStyle get extraSmallTextMedium => TextStyle(
         fontSize: Dimens.size_12.sp,

@@ -70,8 +70,7 @@ mixin _$NetworkError {
 
 /// @nodoc
 abstract class $NetworkErrorCopyWith<$Res> {
-  factory $NetworkErrorCopyWith(
-          NetworkError value, $Res Function(NetworkError) then) =
+  factory $NetworkErrorCopyWith(NetworkError value, $Res Function(NetworkError) then) =
       _$NetworkErrorCopyWithImpl<$Res, NetworkError>;
 }
 
@@ -88,19 +87,16 @@ class _$NetworkErrorCopyWithImpl<$Res, $Val extends NetworkError>
 
 /// @nodoc
 abstract class _$$_DioErrorCopyWith<$Res> {
-  factory _$$_DioErrorCopyWith(
-          _$_DioError value, $Res Function(_$_DioError) then) =
+  factory _$$_DioErrorCopyWith(_$_DioError value, $Res Function(_$_DioError) then) =
       __$$_DioErrorCopyWithImpl<$Res>;
   @useResult
   $Res call({DioError error});
 }
 
 /// @nodoc
-class __$$_DioErrorCopyWithImpl<$Res>
-    extends _$NetworkErrorCopyWithImpl<$Res, _$_DioError>
+class __$$_DioErrorCopyWithImpl<$Res> extends _$NetworkErrorCopyWithImpl<$Res, _$_DioError>
     implements _$$_DioErrorCopyWith<$Res> {
-  __$$_DioErrorCopyWithImpl(
-      _$_DioError _value, $Res Function(_$_DioError) _then)
+  __$$_DioErrorCopyWithImpl(_$_DioError _value, $Res Function(_$_DioError) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -228,25 +224,21 @@ abstract class _DioError extends NetworkError {
 
   DioError get error;
   @JsonKey(ignore: true)
-  _$$_DioErrorCopyWith<_$_DioError> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$_DioErrorCopyWith<_$_DioError> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class _$$_RequestErrorCopyWith<$Res> {
-  factory _$$_RequestErrorCopyWith(
-          _$_RequestError value, $Res Function(_$_RequestError) then) =
+  factory _$$_RequestErrorCopyWith(_$_RequestError value, $Res Function(_$_RequestError) then) =
       __$$_RequestErrorCopyWithImpl<$Res>;
   @useResult
   $Res call({String? code, String? error});
 }
 
 /// @nodoc
-class __$$_RequestErrorCopyWithImpl<$Res>
-    extends _$NetworkErrorCopyWithImpl<$Res, _$_RequestError>
+class __$$_RequestErrorCopyWithImpl<$Res> extends _$NetworkErrorCopyWithImpl<$Res, _$_RequestError>
     implements _$$_RequestErrorCopyWith<$Res> {
-  __$$_RequestErrorCopyWithImpl(
-      _$_RequestError _value, $Res Function(_$_RequestError) _then)
+  __$$_RequestErrorCopyWithImpl(_$_RequestError _value, $Res Function(_$_RequestError) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -377,32 +369,27 @@ class _$_RequestError extends _RequestError {
 }
 
 abstract class _RequestError extends NetworkError {
-  const factory _RequestError({final String? code, final String? error}) =
-      _$_RequestError;
+  const factory _RequestError({final String? code, final String? error}) = _$_RequestError;
   const _RequestError._() : super._();
 
   String? get code;
   String? get error;
   @JsonKey(ignore: true)
-  _$$_RequestErrorCopyWith<_$_RequestError> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$_RequestErrorCopyWith<_$_RequestError> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class _$$_TypeErrorCopyWith<$Res> {
-  factory _$$_TypeErrorCopyWith(
-          _$_TypeError value, $Res Function(_$_TypeError) then) =
+  factory _$$_TypeErrorCopyWith(_$_TypeError value, $Res Function(_$_TypeError) then) =
       __$$_TypeErrorCopyWithImpl<$Res>;
   @useResult
   $Res call({String? error});
 }
 
 /// @nodoc
-class __$$_TypeErrorCopyWithImpl<$Res>
-    extends _$NetworkErrorCopyWithImpl<$Res, _$_TypeError>
+class __$$_TypeErrorCopyWithImpl<$Res> extends _$NetworkErrorCopyWithImpl<$Res, _$_TypeError>
     implements _$$_TypeErrorCopyWith<$Res> {
-  __$$_TypeErrorCopyWithImpl(
-      _$_TypeError _value, $Res Function(_$_TypeError) _then)
+  __$$_TypeErrorCopyWithImpl(_$_TypeError _value, $Res Function(_$_TypeError) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -530,14 +517,13 @@ abstract class _TypeError extends NetworkError {
 
   String? get error;
   @JsonKey(ignore: true)
-  _$$_TypeErrorCopyWith<_$_TypeError> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$_TypeErrorCopyWith<_$_TypeError> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class _$$_ConnectivityErrorCopyWith<$Res> {
-  factory _$$_ConnectivityErrorCopyWith(_$_ConnectivityError value,
-          $Res Function(_$_ConnectivityError) then) =
+  factory _$$_ConnectivityErrorCopyWith(
+          _$_ConnectivityError value, $Res Function(_$_ConnectivityError) then) =
       __$$_ConnectivityErrorCopyWithImpl<$Res>;
   @useResult
   $Res call({String? message});
@@ -593,8 +579,7 @@ class _$_ConnectivityError extends _ConnectivityError {
   @override
   @pragma('vm:prefer-inline')
   _$$_ConnectivityErrorCopyWith<_$_ConnectivityError> get copyWith =>
-      __$$_ConnectivityErrorCopyWithImpl<_$_ConnectivityError>(
-          this, _$identity);
+      __$$_ConnectivityErrorCopyWithImpl<_$_ConnectivityError>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -672,8 +657,7 @@ class _$_ConnectivityError extends _ConnectivityError {
 }
 
 abstract class _ConnectivityError extends NetworkError {
-  const factory _ConnectivityError({final String? message}) =
-      _$_ConnectivityError;
+  const factory _ConnectivityError({final String? message}) = _$_ConnectivityError;
   const _ConnectivityError._() : super._();
 
   String? get message;

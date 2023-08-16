@@ -129,8 +129,6 @@ class _DetailCastScreenBodyState extends State<_DetailCastScreenBody> {
     );
   }
 
-
-
   Widget _knownFor() {
     return ListHomeView(
       padding: 0,

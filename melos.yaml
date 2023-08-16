@@ -1,0 +1,269 @@
+name: the-movie-db
+
+packages:
+  - '*'
+
+ide:
+  intellij:
+    enabled: false
+    moduleNamePrefix: ''
+
+scripts:
+  generateAll:
+    run: zsh ./scripts/generate_all.sh
+    description: generate freezed models, images, colors, locales.
+
+  generateImages:
+    run: zsh ./scripts/flutter_gen.sh
+    description: use the flutter gen to generate assets(images, colors,...).
+
+  generateColors:
+    run: zsh ./scripts/gen_colors.sh
+    description: use the flutter gen to generate assets(images, colors,...).
+
+  generateLocales:
+    run: zsh ./scripts/generate_locales.sh
+    description: generate locales.
+
+  buildRunner:
+    run: zsh ./scripts/build_runner.sh
+    description: build freezed models.
+
+  flutterGen:
+    run: zsh ./scripts/flutter_gen.sh
+    description: generate assets(images, colors,...).
+
+  clean:
+    run: zsh ./scripts/clean.sh
+    description: flutter clean for main project.
+
+  pubGet:
+    run: zsh ./scripts/pub_get.sh
+    description: pub get for main project.
+
+  pubUpgrade:
+    run: zsh ./scripts/pub_upgrade.sh
+    description: pub upgrade for main project
+
+  cleanPackage:
+    run: |
+      melos exec -- flutter clean
+    select-package:
+      dir-exists: lib
+    description: flutter clean for each package.
+
+  pubGetPackage:
+    run: |
+      melos exec -- flutter pub get
+    select-package:
+      dir-exists: lib
+    description: pub get for each package.
+
+  analyze: dart analyze
+
+  format: zsh ./scripts/dart_format.sh
+
+  unit:test:
+    run: melos exec -- dart test
+    select-package:
+      dir-exists: test
+
+  unchangeGitModules: zsh ./scripts/git/unchange_git_modules.sh
+
+  gitInitModularRemotes:
+    run: |
+      melos exec \
+      -- git remote-init
+    description: add the modular remote to each module.
+
+  gitStatus:
+    run: |
+      melos exec \
+      -- git status
+    description: check the project status for each module.
+
+  testWithCoverage:
+    run: zsh ./scripts/test_with_coverage.sh
+    description: install lcov and convert the lcov.info file to HTML pages.
+
+  combineTestCoverages: zsh ./scripts/combine_coverage.sh
+
+  install_lcov:
+    run: |
+      melos exec -- brew install lcov
+    description: install lcov and convert the lcov.info file to HTML pages.
+
+  lcovToHtml:
+    run: zsh ./scripts/lcov_to_html.sh
+    description: convert the lcov.info file to HTML pages.
+
+  createNativeSplash:
+    run: zsh ./scripts/create_native_splash.sh
+    description: create native splash screen with configuration from the flutter_native_splash.yaml file.
+
+  setNanoEditorForGit:
+    run: zsh ./scripts/set_nano_editor_for_git.sh
+    description: setup global editor for git is Nano.
+
+  # Additional cleanup lifecycle script, executed when `melos clean` is run.
+  postClean: >
+    melos exec -c 6 -- "flutter clean"
+
+  addHeaderIgnoreFlags:
+    # If you add here another --ignore flag, add it also to
+    # "add-license-header" and "check-license-header".
+    run: |
+      addlicense -f ignore_flags.txt \
+        --ignore ".dart_tool/**" \
+        --ignore "build/**" \
+        --ignore "android/**" \
+        --ignore "ios/**" \
+        --ignore "test/**" \
+        --ignore "**/*.yml" \
+        --ignore "**/*.yaml" \
+        --ignore "**/*.xml" \
+        --ignore "**/*.g.dart" \
+        --ignore "**/*.gen.dart" \
+        --ignore "**/*.freezed.dart" \
+        --ignore "**/*.tailor.dart" \
+        --ignore "**/*.mocks.dart" \
+        --ignore "**/generated/**" \
+        --ignore "**/*_controller.dart" \
+        --ignore "**/*_repository_impl.dart" \
+        --ignore "**/*_repository.dart" \
+        --ignore "**/*.sh" \
+        --ignore "**/*.html" \
+        --ignore "**/*.js" \
+        --ignore "**/*.ts" \
+        --ignore "**/*.g.h" \
+        --ignore "**/*.g.m" \
+        --ignore "**/*.rb" \
+        --ignore "**/*.txt" \
+        --ignore "**/*.cmake" \
+        --ignore "**/Runner/AppDelegate.swift" \
+        --ignore "**/Runner/MainFlutterWindow.swift" \
+        --ignore "**/Runner/Runner-Bridging-Header.h" \
+        --ignore "**/Runner/AppDelegate.h" \
+        --ignore "**/Runner/AppDelegate.m" \
+        --ignore "**/Runner/main.m" \
+        --ignore "**/MainActivity.kt" \
+        --ignore "**/MainActivity.java" \
+        --ignore "**/FlutterMultiDexApplication.java" \
+        --ignore "**/GeneratedPluginRegistrant.swift" \
+        --ignore "**/Pods/**" \
+        .
+    description: |
+      Add header ignore_flags.txt to all necessary files.
+       - Requires: Run this one before header license adding.
+
+  addLicenseHeader:
+    # If you add here another --ignore flag, add it also to
+    # "check-license-header" and "add-header-ignore-flags".
+    run: |
+      addlicense -f header_template.txt \
+        --ignore ".dart_tool/**" \
+        --ignore "build/**" \
+        --ignore "android/**" \
+        --ignore "ios/**" \
+        --ignore "**/*.yml" \
+        --ignore "**/*.yaml" \
+        --ignore "**/*.xml" \
+        --ignore "**/*.g.dart" \
+        --ignore "**/*.gen.dart" \
+        --ignore "**/*.freezed.dart" \
+        --ignore "**/*.tailor.dart" \
+        --ignore "**/*.mocks.dart" \
+        --ignore "**/generated/**" \
+        --ignore "**/*.sh" \
+        --ignore "**/*.html" \
+        --ignore "**/*.js" \
+        --ignore "**/*.ts" \
+        --ignore "**/*.g.h" \
+        --ignore "**/*.g.m" \
+        --ignore "**/*.rb" \
+        --ignore "**/*.txt" \
+        --ignore "**/*.cmake" \
+        --ignore "**/Runner/AppDelegate.swift" \
+        --ignore "**/Runner/MainFlutterWindow.swift" \
+        --ignore "**/Runner/Runner-Bridging-Header.h" \
+        --ignore "**/Runner/AppDelegate.h" \
+        --ignore "**/Runner/AppDelegate.m" \
+        --ignore "**/Runner/main.m" \
+        --ignore "**/MainActivity.kt" \
+        --ignore "**/MainActivity.java" \
+        --ignore "**/FlutterMultiDexApplication.java" \
+        --ignore "**/GeneratedPluginRegistrant.swift" \
+        --ignore "**/Pods/**" \
+        .
+    description: |
+      Add a license header to all necessary files.
+       - Requires: Run add-header-ignore-flags to add necessary ignore flags first.
+
+  checkLicenseHeader:
+    # If you add here another --ignore flag, add it also to
+    # "add-license-header" and "add-header-ignore-flags".
+    run: |
+      addlicense -f header_template.txt \
+        --check \
+        --ignore ".dart_tool/**" \
+        --ignore "build/**" \
+        --ignore "android/**" \
+        --ignore "ios/**" \
+        --ignore "test/**" \
+        --ignore "**/*.yml" \
+        --ignore "**/*.yaml" \
+        --ignore "**/*.xml" \
+        --ignore "**/*.g.dart" \
+        --ignore "**/*.gen.dart" \
+        --ignore "**/*.freezed.dart" \
+        --ignore "**/*.tailor.dart" \
+        --ignore "**/*.mocks.dart" \
+        --ignore "**/generated/**" \
+        --ignore "**/*.sh" \
+        --ignore "**/*.html" \
+        --ignore "**/*.js" \
+        --ignore "**/*.ts" \
+        --ignore "**/*.g.h" \
+        --ignore "**/*.g.m" \
+        --ignore "**/*.rb" \
+        --ignore "**/*.txt" \
+        --ignore "**/*.cmake" \
+        --ignore "**/Runner/AppDelegate.swift" \
+        --ignore "**/Runner/MainFlutterWindow.swift" \
+        --ignore "**/Runner/Runner-Bridging-Header.h" \
+        --ignore "**/Runner/AppDelegate.h" \
+        --ignore "**/Runner/AppDelegate.m" \
+        --ignore "**/Runner/main.m" \
+        --ignore "**/MainActivity.kt" \
+        --ignore "**/MainActivity.java" \
+        --ignore "**/FlutterMultiDexApplication.java" \
+        --ignore "**/GeneratedPluginRegistrant.swift" \
+        --ignore "**/Pods/**" \
+        .
+    description: check the license header in all necessary files.
+
+  clearGitCached: zsh ./scripts/clear_git_cached_files.sh
+
+  gitStats:
+    run: zsh ./scripts/file_type_statistic.sh
+    description: File type statistic.
+
+  buildAppBundleRelease:
+    run: zsh ./scripts/build_app_bundle_release.sh
+    description: build the app bundle release.
+
+  buildAPKProduction:
+    run: zsh ./scripts/build_apk_production.sh
+    description: build the APK release.
+
+  buildAPKDevelop:
+    run: zsh ./scripts/build_apk_develop.sh
+    description: build the APK develop.
+
+  buildIPADevelop:
+    run: zsh ./scripts/build_ipa_develop.sh
+    description: build the IPA develop.
+
+  buildIPAProduction:
+    run: zsh ./scripts/build_ipa_production.sh
+    description: build the IPA production.

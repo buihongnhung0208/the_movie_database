@@ -1,16 +1,23 @@
-# the_movie_database
+M-Connect eDoc
 
-A new Flutter project.
+Prerequisites
+Install `flutter_gen` pub
+```shell
+brew install FlutterGen/tap/fluttergen
+```
 
-## Getting Started
+1. Clone project
+```shell
+git clone git@github.com:Mobile-Squad/Connect-eDoc.git mconnect_edoc
+```
 
-This project is a starting point for a Flutter application.
+2. Run
+```shell
+melos bootstrap
+```
+to setup project's dependencies
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+3. Re-generate resource files of package module (if needed)
+```shell
+melos buildRunner
+```

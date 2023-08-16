@@ -32,5 +32,6 @@ class CoreResponseObject<T> extends BaseResponseObject<T> {
 CoreResponseObject<JSONObject?> decodeJsonObject(Map<String, dynamic> json) =>
     CoreResponseObject<JSONObject?>.fromJson(json, (json) => json as JSONObject);
 
-CoreResponseObject<DataResponseObject?> decodeJsonToDataResponseObject(Map<String, dynamic> json) =>
+CoreResponseObject<DataResponseObject?> decodeJsonToDataResponseObject(
+        Map<String, dynamic> json) =>
     CoreResponseObject<DataResponseObject?>.fromJson(json, jsonToNullableDataResponseObject);
