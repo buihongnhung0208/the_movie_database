@@ -68,10 +68,9 @@ class _$DataResponseObjectCopyWithImpl<$Res, $Val extends DataResponseObject>
 }
 
 /// @nodoc
-abstract class _$$_DataResponseObjectCopyWith<$Res>
-    implements $DataResponseObjectCopyWith<$Res> {
-  factory _$$_DataResponseObjectCopyWith(_$_DataResponseObject value,
-          $Res Function(_$_DataResponseObject) then) =
+abstract class _$$_DataResponseObjectCopyWith<$Res> implements $DataResponseObjectCopyWith<$Res> {
+  factory _$$_DataResponseObjectCopyWith(
+          _$_DataResponseObject value, $Res Function(_$_DataResponseObject) then) =
       __$$_DataResponseObjectCopyWithImpl<$Res>;
   @override
   @useResult
@@ -132,8 +131,7 @@ class _$_DataResponseObject implements _DataResponseObject {
             other is _$_DataResponseObject &&
             (identical(other.encryptedData, encryptedData) ||
                 other.encryptedData == encryptedData) &&
-            (identical(other.signature, signature) ||
-                other.signature == signature));
+            (identical(other.signature, signature) || other.signature == signature));
   }
 
   @JsonKey(ignore: true)
@@ -144,8 +142,7 @@ class _$_DataResponseObject implements _DataResponseObject {
   @override
   @pragma('vm:prefer-inline')
   _$$_DataResponseObjectCopyWith<_$_DataResponseObject> get copyWith =>
-      __$$_DataResponseObjectCopyWithImpl<_$_DataResponseObject>(
-          this, _$identity);
+      __$$_DataResponseObjectCopyWithImpl<_$_DataResponseObject>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
@@ -156,12 +153,10 @@ class _$_DataResponseObject implements _DataResponseObject {
 }
 
 abstract class _DataResponseObject implements DataResponseObject {
-  const factory _DataResponseObject(
-      {final String encryptedData,
-      final String signature}) = _$_DataResponseObject;
+  const factory _DataResponseObject({final String encryptedData, final String signature}) =
+      _$_DataResponseObject;
 
-  factory _DataResponseObject.fromJson(Map<String, dynamic> json) =
-      _$_DataResponseObject.fromJson;
+  factory _DataResponseObject.fromJson(Map<String, dynamic> json) = _$_DataResponseObject.fromJson;
 
   @override
   String get encryptedData;

@@ -26,15 +26,13 @@ List<DataResponseObject> jsonToListDataResponseObjects(Object? json) =>
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_DataResponseObject _$$_DataResponseObjectFromJson(
-        Map<String, dynamic> json) =>
+_$_DataResponseObject _$$_DataResponseObjectFromJson(Map<String, dynamic> json) =>
     _$_DataResponseObject(
       encryptedData: json['encryptedData'] as String? ?? '',
       signature: json['signature'] as String? ?? '',
     );
 
-Map<String, dynamic> _$$_DataResponseObjectToJson(
-        _$_DataResponseObject instance) =>
+Map<String, dynamic> _$$_DataResponseObjectToJson(_$_DataResponseObject instance) =>
     <String, dynamic>{
       'encryptedData': instance.encryptedData,
       'signature': instance.signature,

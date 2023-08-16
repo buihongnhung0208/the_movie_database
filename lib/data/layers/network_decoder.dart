@@ -15,7 +15,9 @@ class NetworkDecoder {
       if (response.data is List) {
         var list = response.data as List;
         var dataList = List<K>.from(
-          list.map((item) async => (await Isolate.run(jsonDecoder(item) as FutureOr Function()))).toList(),
+          list
+              .map((item) async => (await Isolate.run(jsonDecoder(item) as FutureOr Function())))
+              .toList(),
         ) as K;
         return dataList;
       } else {
