@@ -6,10 +6,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:the_movie_database/presentation/common/card_item.dart';
 import 'package:the_movie_database/presentation/common/short_info_view.dart';
+import 'package:the_movie_database/presentation/resources/dimens.dart';
+import 'package:the_movie_database/presentation/resources/generated/colors.gen.dart';
+import 'package:the_movie_database/presentation/resources/resources.dart';
 import 'package:the_movie_database/presentation/scenes/home/bloc/home_cubit.dart';
-import 'package:the_movie_database/resources/colors.dart';
-import 'package:the_movie_database/resources/dimens.dart';
-import 'package:the_movie_database/resources/resources.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class DetailMovieScreen extends StatelessWidget {
@@ -79,13 +79,13 @@ class _DetailMovieScreenBodyState extends State<_DetailMovieScreenBody> {
     return BaseScaffold(
       toolbar: AppBar(
         centerTitle: true,
-        backgroundColor: AppColors.f042541,
+        backgroundColor: AppColors.ff042541,
         iconTheme: const IconThemeData(color: Colors.white),
       ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Container(
-            color: AppColors.f042541,
+            color: AppColors.ff042541,
             width: double.infinity,
             // height: MediaQuery.of(context).size.height,
             child: Padding(
@@ -141,7 +141,7 @@ class _DetailMovieScreenBodyState extends State<_DetailMovieScreenBody> {
                                   decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(20),
                                       border: Border.all(
-                                        color: AppColors.f21D07A,
+                                        color: AppColors.ff21d07a,
                                         width: Dimens.size_2.w,
                                       )),
                                   child: Center(
@@ -159,7 +159,7 @@ class _DetailMovieScreenBodyState extends State<_DetailMovieScreenBody> {
                                   height: Dimens.size_35.w,
                                   decoration: BoxDecoration(
                                       border: Border.all(
-                                    color: AppColors.f21D07A,
+                                    color: AppColors.ff21d07a,
                                     width: Dimens.size_2.w,
                                   )),
                                   child: Center(
@@ -184,7 +184,7 @@ class _DetailMovieScreenBodyState extends State<_DetailMovieScreenBody> {
                             Text(
                               "Released",
                               style: CoreResources.textStyles.inter.smallTextRegular.copyWith(
-                                color: AppColors.f21D07A,
+                                color: AppColors.ff21d07a,
                               ),
                             ),
                             Dimens.size_10.verticalSpace,
@@ -197,7 +197,7 @@ class _DetailMovieScreenBodyState extends State<_DetailMovieScreenBody> {
                             Text(
                               "683,241,751.00",
                               style: CoreResources.textStyles.inter.smallTextRegular.copyWith(
-                                color: AppColors.f21D07A,
+                                color: AppColors.ff21d07a,
                               ),
                             ),
                           ],

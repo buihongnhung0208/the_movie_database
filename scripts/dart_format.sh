@@ -1,5 +1,0 @@
-#!/bin/zsh
-
-set -e
-
-git ls-files -z -- '*.dart' | xargs -0 dart format "$@" -l 99

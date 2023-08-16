@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:the_movie_database/resources/colors.dart';
-import 'package:the_movie_database/resources/dimens.dart';
+import 'package:the_movie_database/presentation/resources/dimens.dart';
+import 'package:the_movie_database/presentation/resources/generated/colors.gen.dart';
 
 class ListHomeView extends StatelessWidget {
   const ListHomeView({
@@ -9,7 +9,7 @@ class ListHomeView extends StatelessWidget {
     required this.title,
     required this.button,
     this.padding = Dimens.size_16,
-    this.backgroundColor = AppColors.f042541,
+    this.backgroundColor = AppColors.fff9fab,
     required this.child,
   });
 
