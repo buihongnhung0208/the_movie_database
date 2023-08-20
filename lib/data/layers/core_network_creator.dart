@@ -7,6 +7,6 @@ class CoreNetworkCreator extends BaseNetworkCreator {
   @override
   Future<void> preRequest(RequestOptions options) async {
     //TODO
-    options.headers['Authorization'] = 'Bearer ';
+    options.headers['Authorization'] = 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkMGEwZTI5ZjdlYjljNTcwNGRlYWNmNDM4YzM5OTQ0OCIsInN1YiI6IjVkMzgxZDVhNjBjNTFkNzg2ODgyZTUyYyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.FrKyB8DdOdNuwQUaonAqE4S8YTK2cKq3ABQnlwq_fWM';
   }
 }

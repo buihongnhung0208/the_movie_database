@@ -1,5 +1,5 @@
 import 'package:the_movie_database/data/interfaces/base_client_generator.dart';
-import 'package:the_movie_database/di/manage_document_assembler.dart';
+import 'package:the_movie_database/di/dependencies.dart';
 
 import '../../../../config/core_constant.dart';
 
