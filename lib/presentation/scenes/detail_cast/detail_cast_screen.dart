@@ -6,10 +6,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:the_movie_database/presentation/common/card_item.dart';
 import 'package:the_movie_database/presentation/common/short_info_view.dart';
+import 'package:the_movie_database/presentation/resources/dimens.dart';
+import 'package:the_movie_database/presentation/resources/generated/colors.gen.dart';
+import 'package:the_movie_database/presentation/resources/resources.dart';
 import 'package:the_movie_database/presentation/scenes/home/bloc/home_cubit.dart';
-import 'package:the_movie_database/resources/colors.dart';
-import 'package:the_movie_database/resources/dimens.dart';
-import 'package:the_movie_database/resources/resources.dart';
+
 
 class DetailCastScreen extends StatelessWidget {
   final void Function(BuildContext, String)? navigateToDetail;
@@ -52,13 +53,13 @@ class _DetailCastScreenBodyState extends State<_DetailCastScreenBody> {
           ),
         ),
         centerTitle: true,
-        backgroundColor: AppColors.f042541,
+        backgroundColor: AppColors.ff042541,
         iconTheme: const IconThemeData(color: Colors.white),
       ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Container(
-            color: AppColors.f042541,
+            color: AppColors.ff042541,
             width: double.infinity,
             child: Padding(
               padding: EdgeInsets.all(Dimens.size_8.w),
@@ -107,7 +108,7 @@ class _DetailCastScreenBodyState extends State<_DetailCastScreenBody> {
                   ),
                   Dimens.size_10.verticalSpace,
                   Text(
-                    "Biography",
+                    "CoreResources.strings.biography",
                     style: CoreResources.textStyles.inter.mediumTextBold.copyWith(
                       color: Colors.white,
                     ),
@@ -129,13 +130,11 @@ class _DetailCastScreenBodyState extends State<_DetailCastScreenBody> {
     );
   }
 
-
-
   Widget _knownFor() {
     return ListHomeView(
       padding: 0,
       title: Text(
-        "Known For",
+        CoreResources.strings.known_for,
         style: CoreResources.textStyles.inter.largeTextMedium.copyWith(
           color: Colors.white,
         ),

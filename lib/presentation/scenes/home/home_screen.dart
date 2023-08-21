@@ -4,9 +4,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:the_movie_database/presentation/common/card_item.dart';
 import 'package:the_movie_database/presentation/common/short_info_view.dart';
-import 'package:the_movie_database/resources/colors.dart';
-import 'package:the_movie_database/resources/dimens.dart';
-import 'package:the_movie_database/resources/resources.dart';
+import 'package:the_movie_database/presentation/resources/dimens.dart';
+import 'package:the_movie_database/presentation/resources/generated/colors.gen.dart';
+import 'package:the_movie_database/presentation/resources/resources.dart';
 
 import 'bloc/home_cubit.dart';
 
@@ -59,9 +59,9 @@ class _NewHomeScreenBodyState extends State<_NewHomeScreenBody> {
     return BaseScaffold(
       toolbar: AppBar(
         centerTitle: true,
-        backgroundColor: AppColors.f042541,
+        backgroundColor: AppColors.ff042541,
         title: Text(
-          "Home",
+          CoreResources.strings.home,
           style: CoreResources.textStyles.inter.extraLargeTextBold.copyWith(
             color: Colors.white,
           ),
@@ -69,24 +69,24 @@ class _NewHomeScreenBodyState extends State<_NewHomeScreenBody> {
       ),
       body: SafeArea(
         child: Container(
-          color: AppColors.f042541,
+          color: AppColors.ff042541,
           // width: ,
           child: SingleChildScrollView(
             physics: const BouncingScrollPhysics(),
             child: Column(
               children: [
                 _listMovie(
-                  'Popular',
+                  CoreResources.strings.popular,
                   [0, 1, 2, 3, 4, 5],
                 ),
                 Dimens.size_16.verticalSpace,
                 _listMovie(
-                  'Top rated',
+                  CoreResources.strings.top_rated,
                   [0, 1, 2, 3, 4, 5],
                 ),
                 Dimens.size_16.verticalSpace,
                 _listMovie(
-                  'Upcoming',
+                  CoreResources.strings.upcoming,
                   [0, 1, 2, 3, 4, 5],
                 ),
                 Dimens.size_16.verticalSpace
@@ -108,7 +108,7 @@ class _NewHomeScreenBodyState extends State<_NewHomeScreenBody> {
       ),
       button: GestureDetector(
         onTap: () {
-          widget.navigateToList?.call(context, "Popular");
+          widget.navigateToList?.call(context, title);
         },
         child: Row(
           mainAxisSize: MainAxisSize.min,

@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:the_movie_database/presentation/common/card_item.dart';
+import 'package:the_movie_database/presentation/resources/generated/colors.gen.dart';
+import 'package:the_movie_database/presentation/resources/resources.dart';
 import 'package:the_movie_database/presentation/scenes/home/bloc/home_cubit.dart';
-import 'package:the_movie_database/resources/colors.dart';
-import 'package:the_movie_database/resources/resources.dart';
 
 class ListMovieScreen extends StatelessWidget {
   final void Function(BuildContext, String) navigateToDetail;
@@ -42,10 +42,10 @@ class _ListMovieScreenBodyState extends State<_ListMovieScreenBody> {
     return BaseScaffold(
       toolbar: AppBar(
         centerTitle: true,
-        backgroundColor: AppColors.f042541,
+        backgroundColor: AppColors.ff042541,
         iconTheme: const IconThemeData(color: Colors.white),
         title: Text(
-          "Popular",
+          CoreResources.strings.popular,
           style: CoreResources.textStyles.inter.extraLargeTextBold.copyWith(
             color: Colors.white,
           ),
@@ -53,10 +53,10 @@ class _ListMovieScreenBodyState extends State<_ListMovieScreenBody> {
       ),
       body: SafeArea(
         child: Container(
-          color: AppColors.f042541,
+          color: AppColors.ff042541,
           // width: ,
           child: Container(
-            color: AppColors.f042541,
+            color: AppColors.ff042541,
             child: PagedListView(
               pagingController: _pagingController,
               shrinkWrap: true,
