@@ -20,7 +20,6 @@ class ManageRepository implements ManageRepositoryType {
       jsonDecoder: (json) => CoreResponseObject<JSONObject>.fromJson(
         json,
             (json) => {
-
           'data': json,
         },
       ),
