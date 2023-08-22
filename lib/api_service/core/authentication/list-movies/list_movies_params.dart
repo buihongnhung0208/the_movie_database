@@ -13,11 +13,10 @@ class ListMoviesParams with _$ListMoviesParams {
     @Default(1) int page,
   }) = _ListMoviesParams;
 
-  factory ListMoviesParams.fromJson(Map<String, dynamic> json) =>
-      _$ListMoviesParamsFromJson(json);
+  factory ListMoviesParams.fromJson(Map<String, dynamic> json) => _$ListMoviesParamsFromJson(json);
 
   Map<String, dynamic> toDeepJson() => <String, dynamic>{
-    'language': language,
-    'page': page,
-  };
+        'language': language,
+        'page': page,
+      };
 }

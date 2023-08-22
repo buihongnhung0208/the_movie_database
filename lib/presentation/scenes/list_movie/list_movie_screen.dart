@@ -39,6 +39,7 @@ class _ListMovieScreenBodyState extends State<_ListMovieScreenBody> {
   void initState() {
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider<ListMovieCubit>(

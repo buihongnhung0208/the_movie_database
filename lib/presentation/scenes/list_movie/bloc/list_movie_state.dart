@@ -19,8 +19,8 @@ class ListMovieState extends Equatable {
 
   @override
   List<Object?> get props => [
-    isLoading,
-    isEnd,
-    listMovies,
-  ];
+        isLoading,
+        isEnd,
+        listMovies,
+      ];
 }

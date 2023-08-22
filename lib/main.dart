@@ -8,16 +8,16 @@ import 'package:the_movie_database/presentation/resources/generated/colors.gen.d
 import 'package:the_movie_database/presentation/resources/generated/l10n.dart';
 import 'package:the_movie_database/presentation/routes/routes.dart';
 
-
 void main() async {
   runZonedGuarded(
-        () async {
+    () async {
       WidgetsFlutterBinding.ensureInitialized();
       final sharedPrefs = await SharedPreferences.getInstance();
-      sharedPrefs.setString('access_token', "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkMGEwZTI5ZjdlYjljNTcwNGRlYWNmNDM4YzM5OTQ0OCIsInN1YiI6IjVkMzgxZDVhNjBjNTFkNzg2ODgyZTUyYyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.FrKyB8DdOdNuwQUaonAqE4S8YTK2cKq3ABQnlwq_fWM");
-      runApp( const MyApp());
+      sharedPrefs.setString('access_token',
+          "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkMGEwZTI5ZjdlYjljNTcwNGRlYWNmNDM4YzM5OTQ0OCIsInN1YiI6IjVkMzgxZDVhNjBjNTFkNzg2ODgyZTUyYyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.FrKyB8DdOdNuwQUaonAqE4S8YTK2cKq3ABQnlwq_fWM");
+      runApp(const MyApp());
     },
-        (error, stack) {
+    (error, stack) {
       print("-----error $error");
     },
   );
@@ -53,8 +53,8 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
         theme: ThemeData(
           useMaterial3: true,
           colorScheme: Theme.of(context).colorScheme.copyWith(
-            background: AppColors.ff042541,
-          ),
+                background: AppColors.ff042541,
+              ),
           textSelectionTheme: const TextSelectionThemeData(
             cursorColor: Colors.white,
           ),

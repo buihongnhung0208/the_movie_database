@@ -109,5 +109,4 @@ final class CoreAPIService extends BaseAPIService {
       return Result.failure(NetworkError.type(error: error.toString()));
     }
   }
-
 }
