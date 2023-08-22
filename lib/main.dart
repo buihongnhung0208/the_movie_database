@@ -2,17 +2,46 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:the_movie_database/presentation/resources/dimens.dart';
 import 'package:the_movie_database/presentation/resources/generated/colors.gen.dart';
 import 'package:the_movie_database/presentation/resources/generated/l10n.dart';
 import 'package:the_movie_database/presentation/routes/routes.dart';
 
-void main() {
-  runApp(const MyApp());
+
+void main() async {
+  runZonedGuarded(
+        () async {
+      WidgetsFlutterBinding.ensureInitialized();
+      final sharedPrefs = await SharedPreferences.getInstance();
+      sharedPrefs.setString('access_token', "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkMGEwZTI5ZjdlYjljNTcwNGRlYWNmNDM4YzM5OTQ0OCIsInN1YiI6IjVkMzgxZDVhNjBjNTFkNzg2ODgyZTUyYyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.FrKyB8DdOdNuwQUaonAqE4S8YTK2cKq3ABQnlwq_fWM");
+      runApp( const MyApp());
+    },
+        (error, stack) {
+      print("-----error $error");
+    },
+  );
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
 
   // This widget is the root of your application.
   @override
@@ -24,15 +53,13 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           useMaterial3: true,
           colorScheme: Theme.of(context).colorScheme.copyWith(
-                background: AppColors.ff042541,
-              ),
+            background: AppColors.ff042541,
+          ),
           textSelectionTheme: const TextSelectionThemeData(
             cursorColor: Colors.white,
           ),
         ),
-        localizationsDelegates: const [
-          S.delegate
-        ],
+        localizationsDelegates: const [S.delegate],
         supportedLocales: S.delegate.supportedLocales,
         localeResolutionCallback: _localeCallback,
         locale: const Locale('en'),
