@@ -32,6 +32,7 @@ class ListHomeView extends StatelessWidget {
               top: padding.h,
               left: padding.w,
               right: padding.w,
+              bottom: padding.h
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
