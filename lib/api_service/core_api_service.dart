@@ -11,7 +11,6 @@ import 'package:mg_api_service/model/base_api_input.dart';
 import 'package:mg_api_service/wrapper/network_error.dart';
 import 'package:mg_api_service/wrapper/result.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:the_movie_database/model/core_response_object/core_response.dart';
 
 final class CoreAPIService extends BaseAPIService {
   CoreAPIService() : super();
@@ -37,75 +36,15 @@ final class CoreAPIService extends BaseAPIService {
     try {
       final coreResponseObject = await requestJSONObject(
         input,
-        (jsonObject) => CoreResponseObject.fromJson(
-          jsonObject,
-          (json) => mapper((JSONObject(json as JSONObjectAlias? ?? {}))),
-        ),
+        mapper,
         options: options,
         printToCurl: printToCurl,
       );
-
-      final statusCode = HTTPStatus(coreResponseObject.statusCode);
-
-      if (statusCode.isOk) {
-        return Result.success(coreResponseObject.data);
-      }
-
-      return Result.failure(
-        NetworkError.request(
-          code: coreResponseObject.statusCode?.toString(),
-          error: coreResponseObject.error,
-        ),
-      );
+      return Result.success(coreResponseObject);
     } on DioException catch (error) {
-      final httpStatus = HTTPStatus(error.response?.statusCode);
       return Result.failure(NetworkError.dio(error: error));
     } catch (error) {
       log('CoreRequest Error: ${error.toString()}');
-      return Result.failure(NetworkError.type(error: error.toString()));
-    }
-  }
-
-  Future<Result<List<T>?, NetworkError>> requestList<T>(
-    BaseAPIInput input,
-    T Function(JSONObject jsonObject) mapper, {
-    NetworkOptions? options,
-    bool printToCurl = false,
-  }) async {
-    try {
-      final coreResponseObject = await requestJSONObject(
-        input,
-        (jsonObject) => CoreResponseObject.fromJson(
-          jsonObject,
-          (json) {
-            if (json == null) return null;
-
-            final dataList = json as List?;
-
-            return dataList?.map((e) => mapper(JSONObject(e))).toList();
-          },
-        ),
-        options: options,
-        printToCurl: printToCurl,
-      );
-
-      final statusCode = HTTPStatus(coreResponseObject.statusCode);
-
-      if (statusCode.isOk) {
-        return Result.success(coreResponseObject.data);
-      }
-
-      return Result.failure(
-        NetworkError.request(
-          code: coreResponseObject.statusCode?.toString(),
-          error: coreResponseObject.error,
-        ),
-      );
-    } on DioException catch (error) {
-      log('DioError: ${error.toString()}');
-      return Result.failure(NetworkError.dio(error: error));
-    } catch (error) {
-      log('CoreListRequest Error: ${error.toString()}');
       return Result.failure(NetworkError.type(error: error.toString()));
     }
   }
