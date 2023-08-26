@@ -17,7 +17,7 @@ class ListMovieScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => HomeCubit(),
+      create: (context) => ListMovieCubit(),
       child: _ListMovieScreenBody(navigateToDetail: navigateToDetail),
     );
   }
@@ -38,15 +38,18 @@ class _ListMovieScreenBodyState extends State<_ListMovieScreenBody> {
   @override
   void initState() {
     super.initState();
+    _pagingController.addPageRequestListener(
+      (pageKey) {
+        if (pageKey == 1) {
+          context.read<ListMovieCubit>().getListPopular(page: pageKey);
+        }
+      },
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<ListMovieCubit>(
-      create: (context) => ListMovieCubit()..getData(),
-      child: BlocBuilder<ListMovieCubit, ListMovieState>(
-        builder: (context, state) {
-          return BaseScaffold(
+    return   BaseScaffold(
             toolbar: AppBar(
               centerTitle: true,
               backgroundColor: AppColors.ff042541,
@@ -59,34 +62,30 @@ class _ListMovieScreenBodyState extends State<_ListMovieScreenBody> {
               ),
             ),
             body: SafeArea(
-              child: Container(
-                color: AppColors.ff042541,
-                // width: ,
-                child: Container(
-                  color: AppColors.ff042541,
-                  child: PagedListView(
-                    pagingController: _pagingController,
-                    shrinkWrap: true,
-                    // physics: const NeverScrollableScrollPhysics(),
-                    keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-                    builderDelegate: PagedChildBuilderDelegate(
-                      animateTransitions: true,
-                      firstPageProgressIndicatorBuilder: (context) => Container(),
-                      newPageErrorIndicatorBuilder: (context) => Container(),
-                      newPageProgressIndicatorBuilder: (context) => const Center(
-                        child: CircularProgressIndicator(),
-                      ),
-                      noItemsFoundIndicatorBuilder: (context) => Container(),
-                      itemBuilder: (context, item, index) =>
-                          CardItem(navigateToDetail: widget.navigateToDetail),
+              child: Expanded(
+                child: PagedListView(
+                  pagingController: _pagingController,
+                  shrinkWrap: true,
+                  // physics: const NeverScrollableScrollPhysics(),
+                  keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+                  builderDelegate: PagedChildBuilderDelegate(
+                    animateTransitions: true,
+                    firstPageProgressIndicatorBuilder: (context) => Container(),
+                    newPageErrorIndicatorBuilder: (context) => Container(),
+                    newPageProgressIndicatorBuilder: (context) => const Center(
+                      child: CircularProgressIndicator(),
                     ),
+                    noItemsFoundIndicatorBuilder: (context) => Container(),
+                    itemBuilder: (context, item, index) =>
+                        Container()
+                        // CardItem(navigateToDetail: widget.navigateToDetail),
                   ),
                 ),
               ),
             ),
           );
-        },
-      ),
-    );
+    //     },
+    //   ),
+    // );
   }
 }

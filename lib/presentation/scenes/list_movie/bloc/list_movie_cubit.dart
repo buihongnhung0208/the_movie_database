@@ -10,7 +10,7 @@ part 'list_movie_state.dart';
 class ListMovieCubit extends Cubit<ListMovieState> {
   ListMovieCubit() : super(ListMovieState.initial());
 
-  Future<void> getListPopular() async {
+  Future<void> getListPopular({int page = 1}) async {
     emit(
       state.copyWith(
         isLoading: true,
@@ -19,6 +19,7 @@ class ListMovieCubit extends Cubit<ListMovieState> {
     );
     final getListInput = ListMoviesAPIInput(
       const ListMoviesParams(language: 'en-US', page: 1),
+      ""
     );
     final coreAPIService = CoreAPIService();
     final listMovies = await coreAPIService.request(
@@ -29,14 +30,12 @@ class ListMovieCubit extends Cubit<ListMovieState> {
     listMovies.when(
       success: (listObject) {
         try {
-          print("------listObject $listObject");
-          // emit(
-          //   state.copyWith(
-          //     isLoading: false,
-          //     listMovies: [...listObject],
-          //     // isEndMust: listDocumentObject.length < LIMIT,
-          //   ),
-          // );
+          emit(
+            state.copyWith(
+              isLoading: false,
+              listMovies: [...listObject!.results],
+            ),
+          );
         } catch (e) {
           emit(state.copyWith(isLoading: false));
         }
