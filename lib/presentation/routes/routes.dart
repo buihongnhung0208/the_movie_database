@@ -34,7 +34,6 @@ final homeRoute = GoRoute(
         NavigationUtils.getSubRouteName(
           [MainRoutes.home, MainRoutes.listMovies],
         ),
-        extra: {'title': title},
       ),
       navigateToDetail: (context, id) => GoRouter.of(context).pushNamed(
         NavigationUtils.getSubRouteName(
@@ -67,7 +66,6 @@ GoRoute listMoviesRoute({
             [rootSubRouteName, MainRoutes.detailMovie],
           ),
         ),
-        title: (state.extra as Map)['title'],
       ),
     ),
     routes: [

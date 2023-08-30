@@ -9,8 +9,7 @@ import 'package:the_movie_database/presentation/common/short_info_view.dart';
 import 'package:the_movie_database/presentation/resources/dimens.dart';
 import 'package:the_movie_database/presentation/resources/generated/colors.gen.dart';
 import 'package:the_movie_database/presentation/resources/resources.dart';
-
-import 'bloc/detail_cast_cubit.dart';
+import 'package:the_movie_database/presentation/scenes/home/bloc/home_cubit.dart';
 
 
 class DetailCastScreen extends StatelessWidget {
@@ -21,7 +20,7 @@ class DetailCastScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => DetailCastCubit(),
+      create: (context) => HomeCubit(),
       child: _DetailCastScreenBody(navigateToDetail: navigateToDetail),
     );
   }
@@ -147,10 +146,10 @@ class _DetailCastScreenBodyState extends State<_DetailCastScreenBody> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Dimens.size_8.horizontalSpace,
-            // CardItem(navigateToDetail: widget.navigateToDetail),
-            // CardItem(navigateToDetail: widget.navigateToDetail),
-            // CardItem(navigateToDetail: widget.navigateToDetail),
-            // CardItem(navigateToDetail: widget.navigateToDetail),
+            CardItem(navigateToDetail: widget.navigateToDetail),
+            CardItem(navigateToDetail: widget.navigateToDetail),
+            CardItem(navigateToDetail: widget.navigateToDetail),
+            CardItem(navigateToDetail: widget.navigateToDetail),
           ],
         ),
       ),
