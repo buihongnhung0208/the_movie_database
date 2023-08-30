@@ -50,6 +50,7 @@ dependencies:
   intl: ^0.18.0
   intl_utils: ^2.8.2
   shared_preferences: ^2.2.0
+  flutter_config: ^2.0.2
   annotations:
     git:
       url: git@github.com:Mobile-Squad/Object-Generator.git
