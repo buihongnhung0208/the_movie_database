@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_config/flutter_config.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -8,12 +9,14 @@ import 'package:the_movie_database/presentation/resources/dimens.dart';
 import 'package:the_movie_database/presentation/resources/generated/colors.gen.dart';
 import 'package:the_movie_database/presentation/resources/generated/l10n.dart';
 import 'package:the_movie_database/presentation/routes/routes.dart';
+import 'di/assembler.dart';
 
 void main() async {
   runZonedGuarded(
     () async {
       WidgetsFlutterBinding.ensureInitialized();
       await FlutterConfig.loadEnvVariables();
+      registerDependencies();
       final sharedPrefs = await SharedPreferences.getInstance();
       sharedPrefs.setString('access_token',
           "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkMGEwZTI5ZjdlYjljNTcwNGRlYWNmNDM4YzM5OTQ0OCIsInN1YiI6IjVkMzgxZDVhNjBjNTFkNzg2ODgyZTUyYyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.FrKyB8DdOdNuwQUaonAqE4S8YTK2cKq3ABQnlwq_fWM");
