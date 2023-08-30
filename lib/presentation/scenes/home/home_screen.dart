@@ -130,7 +130,7 @@ class _NewHomeScreenBodyState extends State<_NewHomeScreenBody> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Text(
-                    "All",
+                    CoreResources.strings.all,
                     style: CoreResources.textStyles.inter.smallTextMedium.copyWith(
                       color: Colors.white,
                     ),

@@ -18,8 +18,7 @@ void main() async {
       await FlutterConfig.loadEnvVariables();
       registerDependencies();
       final sharedPrefs = await SharedPreferences.getInstance();
-      sharedPrefs.setString('access_token',
-          "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkMGEwZTI5ZjdlYjljNTcwNGRlYWNmNDM4YzM5OTQ0OCIsInN1YiI6IjVkMzgxZDVhNjBjNTFkNzg2ODgyZTUyYyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.FrKyB8DdOdNuwQUaonAqE4S8YTK2cKq3ABQnlwq_fWM");
+      sharedPrefs.setString('access_token',FlutterConfig.get('ACCESS_TOKEN'),);
       runApp(const MyApp());
     },
     (error, stack) {

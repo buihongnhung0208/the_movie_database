@@ -109,6 +109,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Tất cả`
+  String get all {
+    return Intl.message(
+      'Tất cả',
+      name: 'all',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
