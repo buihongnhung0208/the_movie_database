@@ -81,13 +81,23 @@ class _NewHomeScreenBodyState extends State<_NewHomeScreenBody> {
                 physics: const BouncingScrollPhysics(),
                 child: Column(
                   children: [
-                    _listMovie(CoreResources.strings.popular, state.listPopular, state.isLoading),
+                    _listMovie(
+                      CoreResources.strings.popular,
+                      state.listPopular,
+                      state.isLoading,
+                    ),
                     Dimens.size_16.verticalSpace,
-                    _listMovie(CoreResources.strings.top_rated, state.listTopRated,
-                        state.isLoadingTopRated),
+                    _listMovie(
+                      CoreResources.strings.top_rated,
+                      state.listTopRated,
+                      state.isLoadingTopRated,
+                    ),
                     Dimens.size_16.verticalSpace,
-                    _listMovie(CoreResources.strings.upcoming, state.listUpcoming,
-                        state.isLoadingUpcoming),
+                    _listMovie(
+                      CoreResources.strings.upcoming,
+                      state.listUpcoming,
+                      state.isLoadingUpcoming,
+                    ),
                     Dimens.size_16.verticalSpace
                   ],
                 ),
