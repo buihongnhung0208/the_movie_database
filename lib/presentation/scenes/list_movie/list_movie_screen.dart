@@ -7,8 +7,11 @@ import 'package:the_movie_database/presentation/resources/generated/colors.gen.d
 import 'package:the_movie_database/presentation/resources/resources.dart';
 import 'package:the_movie_database/presentation/scenes/home/bloc/home_cubit.dart';
 
+import 'bloc/list_movie_cubit.dart';
+
 class ListMovieScreen extends StatelessWidget {
   final void Function(BuildContext, String) navigateToDetail;
+
   const ListMovieScreen({super.key, required this.navigateToDetail});
 
   @override
@@ -39,43 +42,50 @@ class _ListMovieScreenBodyState extends State<_ListMovieScreenBody> {
 
   @override
   Widget build(BuildContext context) {
-    return BaseScaffold(
-      toolbar: AppBar(
-        centerTitle: true,
-        backgroundColor: AppColors.ff042541,
-        iconTheme: const IconThemeData(color: Colors.white),
-        title: Text(
-          CoreResources.strings.popular,
-          style: CoreResources.textStyles.inter.extraLargeTextBold.copyWith(
-            color: Colors.white,
-          ),
-        ),
-      ),
-      body: SafeArea(
-        child: Container(
-          color: AppColors.ff042541,
-          // width: ,
-          child: Container(
-            color: AppColors.ff042541,
-            child: PagedListView(
-              pagingController: _pagingController,
-              shrinkWrap: true,
-              // physics: const NeverScrollableScrollPhysics(),
-              keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-              builderDelegate: PagedChildBuilderDelegate(
-                animateTransitions: true,
-                firstPageProgressIndicatorBuilder: (context) => Container(),
-                newPageErrorIndicatorBuilder: (context) => Container(),
-                newPageProgressIndicatorBuilder: (context) => const Center(
-                  child: CircularProgressIndicator(),
+    return BlocProvider<ListMovieCubit>(
+      create: (context) => ListMovieCubit()..getData(),
+      child: BlocBuilder<ListMovieCubit, ListMovieState>(
+        builder: (context, state) {
+          return BaseScaffold(
+            toolbar: AppBar(
+              centerTitle: true,
+              backgroundColor: AppColors.ff042541,
+              iconTheme: const IconThemeData(color: Colors.white),
+              title: Text(
+                CoreResources.strings.popular,
+                style: CoreResources.textStyles.inter.extraLargeTextBold.copyWith(
+                  color: Colors.white,
                 ),
-                noItemsFoundIndicatorBuilder: (context) => Container(),
-                itemBuilder: (context, item, index) =>
-                    CardItem(navigateToDetail: widget.navigateToDetail),
               ),
             ),
-          ),
-        ),
+            body: SafeArea(
+              child: Container(
+                color: AppColors.ff042541,
+                // width: ,
+                child: Container(
+                  color: AppColors.ff042541,
+                  child: PagedListView(
+                    pagingController: _pagingController,
+                    shrinkWrap: true,
+                    // physics: const NeverScrollableScrollPhysics(),
+                    keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+                    builderDelegate: PagedChildBuilderDelegate(
+                      animateTransitions: true,
+                      firstPageProgressIndicatorBuilder: (context) => Container(),
+                      newPageErrorIndicatorBuilder: (context) => Container(),
+                      newPageProgressIndicatorBuilder: (context) => const Center(
+                        child: CircularProgressIndicator(),
+                      ),
+                      noItemsFoundIndicatorBuilder: (context) => Container(),
+                      itemBuilder: (context, item, index) =>
+                          CardItem(navigateToDetail: widget.navigateToDetail),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          );
+        },
       ),
     );
   }
