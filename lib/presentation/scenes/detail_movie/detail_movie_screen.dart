@@ -9,8 +9,9 @@ import 'package:the_movie_database/presentation/common/short_info_view.dart';
 import 'package:the_movie_database/presentation/resources/dimens.dart';
 import 'package:the_movie_database/presentation/resources/generated/colors.gen.dart';
 import 'package:the_movie_database/presentation/resources/resources.dart';
-import 'package:the_movie_database/presentation/scenes/home/bloc/home_cubit.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
+
+import 'bloc/detail_movie_cubit.dart';
 
 class DetailMovieScreen extends StatelessWidget {
   final void Function(BuildContext, String)? navigateToDetail;
@@ -28,7 +29,7 @@ class DetailMovieScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => HomeCubit(),
+      create: (context) => DetailMovieCubit(),
       child: _DetailMovieScreenBody(
         navigateToDetail: navigateToDetail,
         navigateToDetailCast: navigateToDetailCast,
