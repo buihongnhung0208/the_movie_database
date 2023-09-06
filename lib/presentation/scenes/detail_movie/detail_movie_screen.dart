@@ -4,51 +4,53 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:the_movie_database/presentation/common/card_item.dart';
+import 'package:the_movie_database/di/assembler.dart';
 import 'package:the_movie_database/presentation/common/short_info_view.dart';
 import 'package:the_movie_database/presentation/resources/dimens.dart';
 import 'package:the_movie_database/presentation/resources/generated/colors.gen.dart';
 import 'package:the_movie_database/presentation/resources/resources.dart';
+import 'package:the_movie_database/utils/utils.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 import 'bloc/detail_movie_cubit.dart';
 
 class DetailMovieScreen extends StatelessWidget {
+  final String id;
   final void Function(BuildContext, String)? navigateToDetail;
   final void Function(BuildContext, String)? navigateToDetailCast;
-  final void Function(BuildContext context, String id, String url, String? title)?
-      navigateToWebView;
 
   const DetailMovieScreen({
     super.key,
+    required this.id,
     this.navigateToDetail,
     this.navigateToDetailCast,
-    this.navigateToWebView,
   });
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => DetailMovieCubit(),
+      lazy: false,
+      create: (context) => DetailMovieCubit(
+        assembler.get(),
+      )..getData(id),
       child: _DetailMovieScreenBody(
+        id: id,
         navigateToDetail: navigateToDetail,
         navigateToDetailCast: navigateToDetailCast,
-        navigateToWebView: navigateToWebView,
       ),
     );
   }
 }
 
 class _DetailMovieScreenBody extends StatefulWidget {
+  final String id;
   final void Function(BuildContext, String)? navigateToDetail;
   final void Function(BuildContext, String)? navigateToDetailCast;
-  final void Function(BuildContext context, String id, String url, String? title)?
-      navigateToWebView;
 
   const _DetailMovieScreenBody({
+    required this.id,
     this.navigateToDetail,
     this.navigateToDetailCast,
-    this.navigateToWebView,
   });
 
   @override
@@ -85,186 +87,199 @@ class _DetailMovieScreenBodyState extends State<_DetailMovieScreenBody> {
       ),
       body: SafeArea(
         child: SingleChildScrollView(
-          child: Container(
-            color: AppColors.ff042541,
-            width: double.infinity,
-            // height: MediaQuery.of(context).size.height,
-            child: Padding(
-              padding: EdgeInsets.all(Dimens.size_8.w),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Harry Potter và Hòn Đá Phù Thủy",
-                    style: CoreResources.textStyles.inter.extraLargeTextBold.copyWith(
-                      color: Colors.white,
-                    ),
-                  ),
-                  Dimens.size_20.verticalSpace,
-                  Row(
+          child: BlocBuilder<DetailMovieCubit, DetailMovieState>(
+            builder: (context, state) {
+              return Container(
+                color: AppColors.ff042541,
+                width: double.infinity,
+                // height: MediaQuery.of(context).size.height,
+                child: Padding(
+                  padding: EdgeInsets.all(Dimens.size_8.w),
+                  child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(Dimens.size_20.r),
-                        child: CachedNetworkImage(
-                          width: Dimens.size_150.w,
-                          height: Dimens.size_230.h,
-                          imageUrl:
-                              'https://www.themoviedb.org/t/p/w188_and_h282_bestv2/9Mi8yPrkA0EefbVyE0CHs8tajsg.jpg',
-                          placeholder: (context, url) => const Center(
-                            child: CircularProgressIndicator(),
-                          ),
-                          errorWidget: (context, url, error) => const Icon(
-                            Icons.error,
-                          ),
+                      Text(
+                        state.detailMovie.title,
+                        style: CoreResources.textStyles.inter.extraLargeTextBold.copyWith(
+                          color: Colors.white,
                         ),
                       ),
-                      Dimens.size_10.horizontalSpace,
-                      Expanded(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "2001, GB, US, Adventure, Fantasy",
-                              style: CoreResources.textStyles.inter.mediumTextBold.copyWith(
-                                color: Colors.white,
+                      Dimens.size_20.verticalSpace,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(Dimens.size_20.r),
+                            child: CachedNetworkImage(
+                              width: Dimens.size_150.w,
+                              height: Dimens.size_230.h,
+                              imageUrl: Utils.generateImageUrl(state.detailMovie.posterPath),
+                              placeholder: (context, url) => const Center(
+                                child: CircularProgressIndicator(),
+                              ),
+                              errorWidget: (context, url, error) => const Icon(
+                                Icons.error,
                               ),
                             ),
-                            Dimens.size_10.verticalSpace,
-                            Row(
+                          ),
+                          Dimens.size_10.horizontalSpace,
+                          Expanded(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Container(
-                                  width: Dimens.size_40.w,
-                                  height: Dimens.size_40.w,
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(20),
-                                      border: Border.all(
+                                Text(
+                                  state.detailMovie.genres.map((e) => e.name).join(", "),
+                                  style: CoreResources.textStyles.inter.mediumTextBold.copyWith(
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                Dimens.size_10.verticalSpace,
+                                Row(
+                                  children: [
+                                    Container(
+                                      width: Dimens.size_40.w,
+                                      height: Dimens.size_40.w,
+                                      decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(20),
+                                          border: Border.all(
+                                            color: AppColors.ff21d07a,
+                                            width: Dimens.size_2.w,
+                                          )),
+                                      child: Center(
+                                        child: Text(
+                                          state.detailMovie.voteAverage
+                                              .toStringAsFixed(1)
+                                              .toString(),
+                                          style: CoreResources.textStyles.inter.mediumTextBold
+                                              .copyWith(
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Dimens.size_10.horizontalSpace,
+                                    Container(
+                                      width: Dimens.size_35.w,
+                                      height: Dimens.size_35.w,
+                                      decoration: BoxDecoration(
+                                          border: Border.all(
                                         color: AppColors.ff21d07a,
                                         width: Dimens.size_2.w,
                                       )),
-                                  child: Center(
-                                    child: Text(
-                                    "7.9",
-                                      style: CoreResources.textStyles.inter.mediumTextBold.copyWith(
-                                        color: Colors.white,
+                                      child: Center(
+                                        child: Text(
+                                          state.detailMovie.originalLanguage.toUpperCase(),
+                                          style: CoreResources.textStyles.inter.mediumTextBold
+                                              .copyWith(
+                                            color: Colors.white,
+                                          ),
+                                        ),
                                       ),
                                     ),
+                                  ],
+                                ),
+                                Dimens.size_10.verticalSpace,
+                                Text(
+                                  CoreResources.strings.status,
+                                  style: CoreResources.textStyles.inter.smallTextRegular.copyWith(
+                                    color: Colors.grey,
                                   ),
                                 ),
-                                Dimens.size_10.horizontalSpace,
-                                Container(
-                                  width: Dimens.size_35.w,
-                                  height: Dimens.size_35.w,
-                                  decoration: BoxDecoration(
-                                      border: Border.all(
+                                Text(
+                                  state.detailMovie.status,
+                                  style: CoreResources.textStyles.inter.smallTextRegular.copyWith(
                                     color: AppColors.ff21d07a,
-                                    width: Dimens.size_2.w,
-                                  )),
-                                  child: Center(
-                                    child: Text(
-                                      "EN",
-                                      style:
-                                          CoreResources.textStyles.inter.mediumTextBold.copyWith(
-                                        color: Colors.white,
-                                      ),
-                                    ),
+                                  ),
+                                ),
+                                Dimens.size_10.verticalSpace,
+                                Text(
+                                  CoreResources.strings.revenue,
+                                  style: CoreResources.textStyles.inter.smallTextRegular.copyWith(
+                                    color: Colors.grey,
+                                  ),
+                                ),
+                                Text(
+                                  state.detailMovie.revenue.toString(),
+                                  style: CoreResources.textStyles.inter.smallTextRegular.copyWith(
+                                    color: AppColors.ff21d07a,
                                   ),
                                 ),
                               ],
                             ),
-                            Dimens.size_10.verticalSpace,
-                            Text(
-                              "Status",
-                              style: CoreResources.textStyles.inter.smallTextRegular.copyWith(
-                                color: Colors.grey,
-                              ),
-                            ),
-                            Text(
-                              "Released",
-                              style: CoreResources.textStyles.inter.smallTextRegular.copyWith(
-                                color: AppColors.ff21d07a,
-                              ),
-                            ),
-                            Dimens.size_10.verticalSpace,
-                            Text(
-                              "Revenue",
-                              style: CoreResources.textStyles.inter.smallTextRegular.copyWith(
-                                color: Colors.grey,
-                              ),
-                            ),
-                            Text(
-                              "683,241,751.00",
-                              style: CoreResources.textStyles.inter.smallTextRegular.copyWith(
-                                color: AppColors.ff21d07a,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                  Text(
-                    "Original Title",
-                    style: CoreResources.textStyles.inter.smallTextRegular.copyWith(
-                      color: Colors.grey,
-                    ),
-                  ),
-                  Text(
-                    "Harry Potter and the Philosopher's Stone",
-                    style: CoreResources.textStyles.inter.smallTextBold.copyWith(
-                      color: Colors.white,
-                    ),
-                  ),
-                  Dimens.size_10.verticalSpace,
-                  Text(
-                    "Overview",
-                    style: CoreResources.textStyles.inter.mediumTextBold.copyWith(
-                      color: Colors.white,
-                    ),
-                  ),
-                  Text(
-                    "Harry Potter và Hòn Đá Phù Thủy là bộ phim đầu tiên trong series phim “Harry Potter” được xây dựng dựa trên tiểu thuyết của nhà văn J.K.Rowling. Nhân vật chính của phim, Harry Potter - một cậu bé 11 tuổi sau khi mồ côi cha mẹ đã bị gửi đến nhà dì dượng của mình, gia đình Dursley. Cùng với trí thông minh và lòng dũng cảm, cậu bé đã cùng những người bạn của mình khám phá những điều bí mật nguy hiểm về thế giới của phép thuật...",
-                    style: CoreResources.textStyles.inter.smallTextRegular.copyWith(
-                      color: Colors.white,
-                    ),
-                  ),
-                  Dimens.size_10.verticalSpace,
-                  Text(
-                    "Trailers",
-                    style: CoreResources.textStyles.inter.mediumTextBold.copyWith(
-                      color: Colors.white,
-                    ),
-                  ),
-                  Dimens.size_5.verticalSpace,
-                  YoutubePlayer(
-                    controller: _youtubePlayerController,
-                    showVideoProgressIndicator: true,
-                    progressIndicatorColor: Colors.blueAccent,
-                    topActions: <Widget>[
-                      const SizedBox(width: 8.0),
-                      Expanded(
-                        child: Text(
-                          _youtubePlayerController.metadata.title,
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 18.0,
                           ),
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 1,
+                        ],
+                      ),
+                      Text(
+                        CoreResources.strings.originalTitle,
+                        style: CoreResources.textStyles.inter.smallTextRegular.copyWith(
+                          color: Colors.grey,
                         ),
                       ),
+                      Text(
+                        state.detailMovie.originalTitle,
+                        style: CoreResources.textStyles.inter.smallTextBold.copyWith(
+                          color: Colors.white,
+                        ),
+                      ),
+                      Dimens.size_10.verticalSpace,
+                      Text(
+                        CoreResources.strings.overview,
+                        style: CoreResources.textStyles.inter.mediumTextBold.copyWith(
+                          color: Colors.white,
+                        ),
+                      ),
+                      Text(
+                        state.detailMovie.overview,
+                        style: CoreResources.textStyles.inter.smallTextRegular.copyWith(
+                          color: Colors.white,
+                        ),
+                      ),
+                      state.detailMovie.video
+                          ? Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Dimens.size_10.verticalSpace,
+                                Text(
+                                  CoreResources.strings.trailers,
+                                  style: CoreResources.textStyles.inter.mediumTextBold.copyWith(
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                Dimens.size_5.verticalSpace,
+                                YoutubePlayer(
+                                  controller: _youtubePlayerController,
+                                  showVideoProgressIndicator: true,
+                                  progressIndicatorColor: Colors.blueAccent,
+                                  topActions: <Widget>[
+                                    const SizedBox(width: 8.0),
+                                    Expanded(
+                                      child: Text(
+                                        _youtubePlayerController.metadata.title,
+                                        style: const TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 18.0,
+                                        ),
+                                        overflow: TextOverflow.ellipsis,
+                                        maxLines: 1,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            )
+                          : Container(),
+                      Dimens.size_10.verticalSpace,
+                      _topBilledCast(),
+                      Dimens.size_10.verticalSpace,
+                      _recommendations(),
                     ],
                   ),
-                  Dimens.size_10.verticalSpace,
-                  _topBilledCast(),
-                  Dimens.size_10.verticalSpace,
-                  _recommendations(),
-                ],
-              ),
-            ),
+                ),
+              );
+            },
           ),
         ),
       ),
@@ -275,7 +290,7 @@ class _DetailMovieScreenBodyState extends State<_DetailMovieScreenBody> {
     return ListHomeView(
       padding: Dimens.size_0,
       title: Text(
-        "Top Billed Cast",
+        CoreResources.strings.topBilledCast,
         style: CoreResources.textStyles.inter.mediumTextBold.copyWith(
           color: Colors.white,
         ),
@@ -357,7 +372,7 @@ class _DetailMovieScreenBodyState extends State<_DetailMovieScreenBody> {
     return ListHomeView(
       padding: 0,
       title: Text(
-        "Recommendations",
+        CoreResources.strings.recommendations,
         style: CoreResources.textStyles.inter.largeTextMedium.copyWith(
           color: Colors.white,
         ),

@@ -78,12 +78,9 @@ class _NewHomeScreenBody extends StatefulWidget {
 }
 
 class _NewHomeScreenBodyState extends State<_NewHomeScreenBody> {
-  void _getHomeData() {}
-
   @override
   void initState() {
     super.initState();
-    _getHomeData();
   }
 
   @override
@@ -109,19 +106,19 @@ class _NewHomeScreenBodyState extends State<_NewHomeScreenBody> {
                 physics: const BouncingScrollPhysics(),
                 child: Column(
                   children: [
-                    _listMovie(
+                    _listMovies(
                       CoreResources.strings.popular,
                       state.listPopular,
                       state.isLoading,
                     ),
                     Dimens.size_16.verticalSpace,
-                    _listMovie(
+                    _listMovies(
                       CoreResources.strings.top_rated,
                       state.listTopRated,
                       state.isLoadingTopRated,
                     ),
                     Dimens.size_16.verticalSpace,
-                    _listMovie(
+                    _listMovies(
                       CoreResources.strings.upcoming,
                       state.listUpcoming,
                       state.isLoadingUpcoming,
@@ -137,7 +134,7 @@ class _NewHomeScreenBodyState extends State<_NewHomeScreenBody> {
     );
   }
 
-  Widget _listMovie(String title, List<MovieResponseObject> list, bool isLoading) {
+  Widget _listMovies(String title, List<MovieResponseObject> list, bool isLoading) {
     return isLoading
         ? const Center(
             child: CircularProgressIndicator(),

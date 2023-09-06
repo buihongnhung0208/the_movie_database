@@ -40,6 +40,7 @@ final homeRoute = GoRoute(
         NavigationUtils.getSubRouteName(
           [MainRoutes.home, MainRoutes.detailMovie],
         ),
+        extra: {'id': id},
       ),
     ),
   ),
@@ -66,6 +67,7 @@ GoRoute listMoviesRoute({
           NavigationUtils.getSubRouteName(
             [rootSubRouteName, MainRoutes.detailMovie],
           ),
+          extra: {'id': id},
         ),
         title: (state.extra as Map)['title'],
       ),
@@ -99,6 +101,7 @@ GoRoute detailMovieRoute({
             [rootSubRouteName, MainRoutes.detailCast],
           ),
         ),
+        id: (state.extra as Map)['id'],
       ),
     ),
     routes: [

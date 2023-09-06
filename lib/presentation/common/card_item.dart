@@ -1,10 +1,11 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:the_movie_database/model/movie_response_object/movie_response_object.dart';
 import 'package:the_movie_database/presentation/resources/dimens.dart';
 import 'package:the_movie_database/presentation/resources/resources.dart';
 import 'package:the_movie_database/utils/utils.dart';
+
+import 'cached_network_image_wrapper.dart';
 
 class CardItem extends StatelessWidget {
   final void Function(BuildContext, String)? navigateToDetail;
@@ -33,11 +34,16 @@ class CardItem extends StatelessWidget {
             children: [
               ClipRRect(
                 borderRadius: BorderRadius.circular(Dimens.size_15.r),
-                child: CachedNetworkImage(
+                child: CachedNetworkImageWrapper(
                   width: Dimens.size_120.w,
                   imageUrl: Utils.generateImageUrl(item.posterPath),
-                  placeholder: (context, url) => const Center(
-                    child: CircularProgressIndicator(),
+                  placeholder: (context, url) => Container(
+                    constraints: BoxConstraints(
+                      minHeight: Dimens.size_173.h,
+                    ),
+                    child: const Center(
+                      child: CircularProgressIndicator(),
+                    ),
                   ),
                   errorWidget: (context, url, error) => const Icon(
                     Icons.error,

@@ -8,4 +8,11 @@
   "known_for": "Phim đã tham gia",
   "all": "Tất cả",
   "something_wrong": "Something went wrong"
+  "status": "Status",
+  "revenue": "Revenue",
+  "originalTitle": "Original Title",
+  "overview": "Overview",
+  "trailers": "Trailers",
+  "topBilledCast": "Top Billed Cast",
+  "recommendations": "Recommendations"
 }

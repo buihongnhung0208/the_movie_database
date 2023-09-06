@@ -18,6 +18,13 @@ _$_MovieResponseObject _$$_MovieResponseObjectFromJson(
       title: json['title'] as String? ?? '',
       voteAverage: (json['vote_average'] as num?)?.toDouble() ?? 0.0,
       voteCount: json['vote_count'] as int? ?? 0,
+      status: json['status'] as String? ?? "",
+      revenue: json['revenue'] as int? ?? 0,
+      video: json['video'] as bool? ?? false,
+      genres: (json['genres'] as List<dynamic>?)
+              ?.map((e) => GenreObject.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const [],
     );
 
 Map<String, dynamic> _$$_MovieResponseObjectToJson(
@@ -32,4 +39,8 @@ Map<String, dynamic> _$$_MovieResponseObjectToJson(
       'title': instance.title,
       'vote_average': instance.voteAverage,
       'vote_count': instance.voteCount,
+      'status': instance.status,
+      'revenue': instance.revenue,
+      'video': instance.video,
+      'genres': instance.genres,
     };
