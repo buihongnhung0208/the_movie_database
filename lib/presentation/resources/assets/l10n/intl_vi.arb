@@ -6,5 +6,12 @@
   "upcoming": "Sắp diễn ra",
   "biography": "Tiểu sử",
   "known_for": "Phim đã tham gia",
-  "all": "Tất cả"
+  "all": "Tất cả",
+  "status": "Status",
+  "revenue": "Revenue",
+  "originalTitle": "Original Title",
+  "overview": "Overview",
+  "trailers": "Trailers",
+  "topBilledCast": "Top Billed Cast",
+  "recommendations": "Recommendations"
 }

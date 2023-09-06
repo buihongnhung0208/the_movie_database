@@ -26,8 +26,17 @@ class MessageLookup extends MessageLookupByLibrary {
         "biography": MessageLookupByLibrary.simpleMessage("Tiểu sử"),
         "home": MessageLookupByLibrary.simpleMessage("Trang chủ"),
         "known_for": MessageLookupByLibrary.simpleMessage("Phim đã tham gia"),
+        "originalTitle": MessageLookupByLibrary.simpleMessage("Original Title"),
+        "overview": MessageLookupByLibrary.simpleMessage("Overview"),
         "popular": MessageLookupByLibrary.simpleMessage("Phổ biến"),
+        "recommendations":
+            MessageLookupByLibrary.simpleMessage("Recommendations"),
+        "revenue": MessageLookupByLibrary.simpleMessage("Revenue"),
+        "status": MessageLookupByLibrary.simpleMessage("Status"),
+        "topBilledCast":
+            MessageLookupByLibrary.simpleMessage("Top Billed Cast"),
         "top_rated": MessageLookupByLibrary.simpleMessage("Xếp hạng cao"),
+        "trailers": MessageLookupByLibrary.simpleMessage("Trailers"),
         "upcoming": MessageLookupByLibrary.simpleMessage("Sắp diễn ra")
       };
 }

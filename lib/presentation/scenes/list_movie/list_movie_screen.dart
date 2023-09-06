@@ -2,9 +2,7 @@ import 'package:base_scaffold/base_scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:the_movie_database/di/assembler.dart';
-import 'package:the_movie_database/model/movie_response_object/movie_response_object.dart';
 import 'package:the_movie_database/presentation/common/card_item.dart';
 import 'package:the_movie_database/presentation/resources/dimens.dart';
 import 'package:the_movie_database/presentation/resources/generated/colors.gen.dart';
@@ -28,7 +26,10 @@ class ListMovieScreen extends StatelessWidget {
       create: (context) => ListMovieCubit(
         assembler.get(),
       )..getData(title ?? ""),
-      child: _ListMovieScreenBody(navigateToDetail: navigateToDetail, title: title),
+      child: _ListMovieScreenBody(
+        navigateToDetail: navigateToDetail,
+        title: title,
+      ),
     );
   }
 }

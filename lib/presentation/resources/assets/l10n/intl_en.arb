@@ -6,5 +6,12 @@
   "upcoming": "Upcoming",
   "biography": "Biography",
   "known_for": "Known for",
-  "all": "All"
+  "all": "All",
+  "status": "Status",
+  "revenue": "Revenue",
+  "originalTitle": "Original Title",
+  "overview": "Overview",
+  "trailers": "Trailers",
+  "topBilledCast": "Top Billed Cast",
+  "recommendations": "Recommendations"
 }

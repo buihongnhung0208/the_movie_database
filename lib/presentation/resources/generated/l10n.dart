@@ -119,6 +119,76 @@ class S {
       args: [],
     );
   }
+
+  /// `Status`
+  String get status {
+    return Intl.message(
+      'Status',
+      name: 'status',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Revenue`
+  String get revenue {
+    return Intl.message(
+      'Revenue',
+      name: 'revenue',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Original Title`
+  String get originalTitle {
+    return Intl.message(
+      'Original Title',
+      name: 'originalTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Overview`
+  String get overview {
+    return Intl.message(
+      'Overview',
+      name: 'overview',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Trailers`
+  String get trailers {
+    return Intl.message(
+      'Trailers',
+      name: 'trailers',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Top Billed Cast`
+  String get topBilledCast {
+    return Intl.message(
+      'Top Billed Cast',
+      name: 'topBilledCast',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Recommendations`
+  String get recommendations {
+    return Intl.message(
+      'Recommendations',
+      name: 'recommendations',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

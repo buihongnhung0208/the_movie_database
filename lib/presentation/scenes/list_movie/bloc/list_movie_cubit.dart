@@ -21,7 +21,6 @@ class ListMovieCubit extends Cubit<ListMovieState> {
       ),
     );
     String url = '';
-    print('titletitle $title');
     switch (title) {
       case 'Popular':
         {
