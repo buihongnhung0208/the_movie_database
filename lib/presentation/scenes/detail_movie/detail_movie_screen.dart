@@ -273,8 +273,8 @@ class _DetailMovieScreenBodyState extends State<_DetailMovieScreenBody> {
                               ],
                             )
                           : Container(),
-                      Dimens.size_10.verticalSpace,
-                      _topBilledCast(),
+                      // Dimens.size_10.verticalSpace,
+                      // _topBilledCast(),
                       Dimens.size_10.verticalSpace,
                       _recommendations(state.listRecommendations),
                     ],

@@ -5,6 +5,7 @@ import 'package:the_movie_database/presentation/scenes/detail_cast/detail_cast_s
 import 'package:the_movie_database/presentation/scenes/detail_movie/detail_movie_screen.dart';
 import 'package:the_movie_database/presentation/scenes/home/home_screen.dart';
 import 'package:the_movie_database/presentation/scenes/list_movie/list_movie_screen.dart';
+import 'package:the_movie_database/presentation/scenes/search_movie/search_screen.dart';
 
 const GlobalKey<NavigatorState> rootNavigatorKey = GlobalObjectKey<NavigatorState>('root');
 
@@ -15,7 +16,7 @@ class MainRoutes {
   static const listMovies = 'listMovies';
   static const detailMovie = 'detailMovie';
   static const detailCast = 'detailCast';
-  static const webView = 'webView';
+  static const search = 'search';
 }
 
 final newRouter = GoRouter(
@@ -42,11 +43,17 @@ final homeRoute = GoRoute(
         ),
         extra: {'id': id},
       ),
+      navigateToSearch: (context) => GoRouter.of(context).pushNamed(
+        NavigationUtils.getSubRouteName(
+          [MainRoutes.home, MainRoutes.search],
+        ),
+      ),
     ),
   ),
   routes: [
     listMoviesRoute(rootName: MainRoutes.home),
     detailMovieRoute(rootName: MainRoutes.home),
+    searchRoute(rootName: MainRoutes.home)
   ],
 );
 
@@ -125,5 +132,38 @@ GoRoute detailCastRoute({
     pageBuilder: (context, state) => const CupertinoPage(
       child: DetailCastScreen(),
     ),
+  );
+}
+
+GoRoute searchRoute({
+  required String rootName,
+}) {
+  final rootSubRouteName = NavigationUtils.getSubRouteName(
+    [rootName, MainRoutes.search],
+  );
+
+  return GoRoute(
+    name: rootSubRouteName,
+    path: MainRoutes.search,
+    parentNavigatorKey: rootNavigatorKey,
+    pageBuilder: (context, state) => CupertinoPage(
+      child: SearchScreen(
+        navigateToDetail: (context, id) => GoRouter.of(context).pushNamed(
+          NavigationUtils.getSubRouteName(
+            [rootSubRouteName],
+          ),
+          extra: {'id': id},
+        ),
+        // navigateToDetailCast: (context, id) => GoRouter.of(context).pushNamed(
+        //   NavigationUtils.getSubRouteName(
+        //     [rootSubRouteName, MainRoutes.detailCast],
+        //   ),
+        // ),
+      ),
+    ),
+    routes: [
+      detailMovieRoute(rootName: rootSubRouteName),
+      detailCastRoute(rootName: rootSubRouteName),
+    ],
   );
 }
