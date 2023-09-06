@@ -15,11 +15,13 @@ import 'bloc/home_cubit.dart';
 class HomeScreen extends StatelessWidget {
   final void Function(BuildContext, String)? navigateToList;
   final void Function(BuildContext, String) navigateToDetail;
+  final void Function(BuildContext) navigateToSearch;
 
   const HomeScreen({
     super.key,
     this.navigateToList,
     required this.navigateToDetail,
+    required this.navigateToSearch,
   });
 
   @override
@@ -31,6 +33,7 @@ class HomeScreen extends StatelessWidget {
       child: _NewHomeScreenBody(
         navigateToList: navigateToList,
         navigateToDetail: navigateToDetail,
+        navigateToSearch: navigateToSearch,
       ),
     );
   }
@@ -40,10 +43,12 @@ class _NewHomeScreenBody extends StatefulWidget {
   const _NewHomeScreenBody({
     this.navigateToList,
     required this.navigateToDetail,
+    required this.navigateToSearch,
   });
 
   final void Function(BuildContext, String)? navigateToList;
   final void Function(BuildContext, String) navigateToDetail;
+  final void Function(BuildContext) navigateToSearch;
 
   @override
   State<_NewHomeScreenBody> createState() => _NewHomeScreenBodyState();
@@ -69,6 +74,17 @@ class _NewHomeScreenBodyState extends State<_NewHomeScreenBody> {
                 color: Colors.white,
               ),
             ),
+            actions: [
+              IconButton(
+                icon: const Icon(Icons.search),
+                tooltip: CoreResources.strings.search,
+                onPressed: () {
+                  widget.navigateToSearch.call(context);
+                },
+                color: Colors.white,
+                padding: EdgeInsets.symmetric(horizontal: Dimens.size_12.w),
+              ),
+            ],
           ),
           body: SafeArea(
             child: Container(
