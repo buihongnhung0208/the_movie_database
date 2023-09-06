@@ -2,7 +2,9 @@ import 'package:base_scaffold/base_scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:the_movie_database/di/assembler.dart';
 import 'package:the_movie_database/presentation/common/card_item.dart';
+import 'package:the_movie_database/presentation/common/cast_item.dart';
 import 'package:the_movie_database/presentation/common/input_field.dart';
 import 'package:the_movie_database/presentation/resources/dimens.dart';
 import 'package:the_movie_database/presentation/resources/generated/colors.gen.dart';
@@ -11,29 +13,31 @@ import 'package:the_movie_database/presentation/resources/resources.dart';
 import 'bloc/search_cubit.dart';
 
 class SearchScreen extends StatelessWidget {
-  final void Function(BuildContext, String) navigateToDetail;
+  final void Function(BuildContext, String) navigateToDetailCast;
 
-  SearchScreen({
+  const SearchScreen({
     super.key,
-    required this.navigateToDetail,
+    required this.navigateToDetailCast,
   });
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => SearchCubit(),
+      create: (context) => SearchCubit(
+        assembler.get(),
+      ),
       child: _SearchScreenBody(
-        navigateToDetail: navigateToDetail,
+        navigateToDetailCast: navigateToDetailCast,
       ),
     );
   }
 }
 
 class _SearchScreenBody extends StatefulWidget {
-  final void Function(BuildContext, String) navigateToDetail;
+  final void Function(BuildContext, String) navigateToDetailCast;
 
   _SearchScreenBody({
-    required this.navigateToDetail,
+    required this.navigateToDetailCast,
   });
 
   @override
@@ -82,32 +86,26 @@ class _SearchScreenBodyState extends State<_SearchScreenBody> {
                       prefixIcon: const Icon(Icons.search),
                       isErrorBoxShown: false,
                       onChanged: (text) {
-                        // context.read<VideoListingCubit>().searchVideos(text);
+                        context.read<SearchCubit>().searchPerson(text: text);
                       },
                     ),
                   ),
                   Dimens.size_8.verticalSpace,
                   Expanded(
-                    child: RefreshIndicator(
-                      color: Colors.white,
-                      onRefresh: () async {
-                        context.read<SearchCubit>().refreshList();
-                      },
-                      child: GridView.builder(
-                        physics: const AlwaysScrollableScrollPhysics(),
-                        controller: scrollController,
-                        itemCount: state.listMovies.length,
-                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          childAspectRatio: 0.8,
-                        ),
-                        itemBuilder: (BuildContext context, int index) {
-                          return CardItem(
-                            navigateToDetail: widget.navigateToDetail,
-                            item: state.listMovies[index],
-                          );
-                        },
+                    child: GridView.builder(
+                      physics: const AlwaysScrollableScrollPhysics(),
+                      controller: scrollController,
+                      itemCount: state.listResult.length,
+                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        childAspectRatio: 0.8,
                       ),
+                      itemBuilder: (BuildContext context, int index) {
+                        return CastItem(
+                          navigateToDetailCast: widget.navigateToDetailCast,
+                          item: state.listResult[index],
+                        );
+                      },
                     ),
                   ),
                   Dimens.size_8.verticalSpace,

@@ -148,21 +148,15 @@ GoRoute searchRoute({
     parentNavigatorKey: rootNavigatorKey,
     pageBuilder: (context, state) => CupertinoPage(
       child: SearchScreen(
-        navigateToDetail: (context, id) => GoRouter.of(context).pushNamed(
+        navigateToDetailCast: (context, id) => GoRouter.of(context).pushNamed(
           NavigationUtils.getSubRouteName(
-            [rootSubRouteName],
+            [rootSubRouteName,MainRoutes.detailCast],
           ),
           extra: {'id': id},
         ),
-        // navigateToDetailCast: (context, id) => GoRouter.of(context).pushNamed(
-        //   NavigationUtils.getSubRouteName(
-        //     [rootSubRouteName, MainRoutes.detailCast],
-        //   ),
-        // ),
       ),
     ),
     routes: [
-      detailMovieRoute(rootName: rootSubRouteName),
       detailCastRoute(rootName: rootSubRouteName),
     ],
   );

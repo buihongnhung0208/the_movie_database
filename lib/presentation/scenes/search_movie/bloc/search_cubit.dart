@@ -1,58 +1,48 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:the_movie_database/api_service/core/authentication/list-movies/list_movies_params.dart';
-import 'package:the_movie_database/api_service/core/authentication/list_movies_api_input.dart';
-import 'package:the_movie_database/domain/usecases/get_list_movies_usecase.dart';
-import 'package:the_movie_database/model/movie_response_object/movie_response_object.dart';
-import 'package:the_movie_database/utils/utils.dart';
+import 'package:the_movie_database/api_service/core/authentication/search-person/search_person_params.dart';
+import 'package:the_movie_database/api_service/core/authentication/search_person_api_input.dart';
+import 'package:the_movie_database/domain/usecases/search_person_usecase.dart';
+import 'package:the_movie_database/model/person_response_object/person_response_object.dart';
 
 part 'search_state.dart';
 
 class SearchCubit extends Cubit<SearchState> {
-  SearchCubit() : super(SearchState.initial());
-  // final GetSearchsUseCase _getSearchsUseCase;
+  SearchCubit(this._searchPersonUseCase) : super(SearchState.initial());
+  final SearchPersonUseCase _searchPersonUseCase;
 
-  Future<void> getSearch({int page = 1}) async {
+  Future<void> searchPerson({int page = 1, String text = ""}) async {
+    print('pagepage $page $text');
     emit(
       state.copyWith(
         isLoading: true,
-        isEnd: false,
+        searchText: text.isEmpty ? state.searchText : text,
         page: page,
       ),
     );
 
-    // final getListInput = SearchsAPIInput(
-    //   SearchsParams(page: page),
-    //   url,
-    // );
-    // final listMovies = await _getSearchsUseCase.call(getListInput);
-    //
-    // listMovies.when(
-    //   success: (listObject) {
-    //     try {
-    //       emit(
-    //         state.copyWith(
-    //           isLoading: false,
-    //           listMovies: [...state.listMovies, ...listObject.results],
-    //           page: listObject.page + 1,
-    //         ),
-    //       );
-    //       print(state.listMovies);
-    //     } catch (e) {
-    //       emit(state.copyWith(isLoading: false));
-    //     }
-    //   },
-    //   failure: (networkError) {
-    //     emit(state.copyWith(isLoading: false));
-    //   },
-    // );
+    final searchPersonInput = SearchPersonAPIInput(
+      SearchPersonParams(page: page, query: text),
+    );
+    final list = await _searchPersonUseCase.call(searchPersonInput);
+
+    list.when(
+      success: (listObject) {
+        emit(
+          state.copyWith(
+            isLoading: false,
+            listResult: page == 1 ? listObject.results : [...state.listResult, ...listObject.results],
+            page: listObject.page + 1,
+          ),
+        );
+      },
+      failure: (networkError) {
+        emit(state.copyWith(isLoading: false));
+      },
+    );
   }
 
   void setLoadMore() {
-    if (state.isLoading == false) getSearch(page: state.page);
-  }
-
-  void refreshList() {
-    if (state.isLoading == false) getSearch(page: 1);
+    if (state.isLoading == false) searchPerson(page: state.page);
   }
 }

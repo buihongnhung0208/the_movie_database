@@ -3,43 +3,43 @@ part of 'search_cubit.dart';
 class SearchState extends Equatable {
   const SearchState({
     required this.isLoading,
-    required this.isEnd,
-    required this.listMovies,
+    required this.searchText,
+    required this.listResult,
     required this.page,
   });
 
   final bool isLoading;
-  final bool isEnd;
+  final String searchText;
   final int page;
-  final List<MovieResponseObject> listMovies;
+  final List<PersonResponseObject> listResult;
 
   factory SearchState.initial() {
     return const SearchState(
       isLoading: false,
-      isEnd: false,
-      listMovies: [],
+      searchText: "",
+      listResult: [],
       page: 1,
     );
   }
 
   SearchState copyWith({
     bool? isLoading,
-    bool? isEnd,
-    List<MovieResponseObject>? listMovies,
+    String? searchText,
+    List<PersonResponseObject>? listResult,
     int? page,
   }) =>
       SearchState(
         isLoading: isLoading ?? this.isLoading,
-        isEnd: isEnd ?? this.isEnd,
-        listMovies: listMovies ?? this.listMovies,
+        searchText: searchText ?? this.searchText,
+        listResult: listResult ?? this.listResult,
         page: page ?? this.page,
       );
 
   @override
   List<Object?> get props => [
         isLoading,
-        isEnd,
-        listMovies,
+        searchText,
+        listResult,
         page,
       ];
 }
