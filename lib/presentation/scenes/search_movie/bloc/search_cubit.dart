@@ -22,7 +22,7 @@ class SearchCubit extends Cubit<SearchState> {
     );
 
     final searchPersonInput = SearchPersonAPIInput(
-      SearchPersonParams(page: page, query: text),
+      SearchPersonParams(page: page, query: text.isEmpty ? state.searchText : text),
     );
     final list = await _searchPersonUseCase.call(searchPersonInput);
 

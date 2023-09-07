@@ -83,6 +83,7 @@ class _SearchScreenBodyState extends State<_SearchScreenBody> {
                     margin: EdgeInsets.symmetric(
                         vertical: Dimens.size_4.h, horizontal: Dimens.size_16.w),
                     child: InputField(
+                      cursorColor: Colors.black,
                       hint: 'Nhập từ khóa để tìm kiếm',
                       prefixIcon: const Icon(Icons.search),
                       isErrorBoxShown: false,
@@ -92,25 +93,29 @@ class _SearchScreenBodyState extends State<_SearchScreenBody> {
                     ),
                   ),
                   Dimens.size_8.verticalSpace,
-                  Expanded(
-                    child: GridView.builder(
-                      physics: const AlwaysScrollableScrollPhysics(),
-                      controller: scrollController,
-                      itemCount: state.listResult.length,
-                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        childAspectRatio: 0.8,
-                      ),
-                      itemBuilder: (BuildContext context, int index) {
-                        return CastItem(
-                          navigateToDetailCast: widget.navigateToDetailCast,
-                          item: state.listResult[index],
-                        );
-                      },
-                    ),
-                  ),
+                  state.isLoading && state.listResult.isEmpty
+                      ? const Center(child: CircularProgressIndicator())
+                      : Expanded(
+                          child: GridView.builder(
+                            physics: const AlwaysScrollableScrollPhysics(),
+                            controller: scrollController,
+                            itemCount: state.listResult.length,
+                            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                              childAspectRatio: 0.8,
+                            ),
+                            itemBuilder: (BuildContext context, int index) {
+                              return CastItem(
+                                navigateToDetailCast: widget.navigateToDetailCast,
+                                item: state.listResult[index],
+                              );
+                            },
+                          ),
+                        ),
                   Dimens.size_8.verticalSpace,
-                  state.isLoading ? const Center(child: CircularProgressIndicator()) : Container(),
+                  state.isLoading && state.listResult.isNotEmpty
+                      ? const Center(child: CircularProgressIndicator())
+                      : Container(),
                   Dimens.size_16.verticalSpace,
                 ],
               );

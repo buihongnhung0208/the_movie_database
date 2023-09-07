@@ -83,31 +83,35 @@ class _ListMovieScreenBodyState extends State<_ListMovieScreenBody> {
               return Column(
                 children: [
                   Dimens.size_8.verticalSpace,
-                  Expanded(
-                    child: RefreshIndicator(
-                      color: Colors.white,
-                      onRefresh: () async {
-                        context.read<ListMovieCubit>().refreshList(widget.title);
-                      },
-                      child: GridView.builder(
-                        physics: const AlwaysScrollableScrollPhysics(),
-                        controller: scrollController,
-                        itemCount: state.listMovies.length,
-                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          childAspectRatio: 0.8,
+                  state.isLoading && state.listMovies.isNotEmpty
+                      ? const Center(child: CircularProgressIndicator())
+                      : Expanded(
+                          child: RefreshIndicator(
+                            color: Colors.white,
+                            onRefresh: () async {
+                              context.read<ListMovieCubit>().refreshList(widget.title);
+                            },
+                            child: GridView.builder(
+                              physics: const AlwaysScrollableScrollPhysics(),
+                              controller: scrollController,
+                              itemCount: state.listMovies.length,
+                              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2,
+                                childAspectRatio: 0.8,
+                              ),
+                              itemBuilder: (BuildContext context, int index) {
+                                return CardItem(
+                                  navigateToDetail: widget.navigateToDetail,
+                                  item: state.listMovies[index],
+                                );
+                              },
+                            ),
+                          ),
                         ),
-                        itemBuilder: (BuildContext context, int index) {
-                          return CardItem(
-                            navigateToDetail: widget.navigateToDetail,
-                            item: state.listMovies[index],
-                          );
-                        },
-                      ),
-                    ),
-                  ),
                   Dimens.size_8.verticalSpace,
-                  state.isLoading ? const Center(child: CircularProgressIndicator()) : Container(),
+                  state.isLoading && state.listMovies.isNotEmpty
+                      ? const Center(child: CircularProgressIndicator())
+                      : Container(),
                   Dimens.size_16.verticalSpace,
                 ],
               );

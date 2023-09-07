@@ -14,5 +14,7 @@
   "trailers": "Trailers",
   "topBilledCast": "Top Billed Cast",
   "recommendations": "Recommendations",
-  "search": "Search"
+  "search": "Search",
+  "see_more": "See more",
+  "see_less: "See less"
 }

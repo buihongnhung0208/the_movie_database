@@ -289,38 +289,6 @@ class _DetailMovieScreenBodyState extends State<_DetailMovieScreenBody> {
     );
   }
 
-  Widget _topBilledCast() {
-    return ListHomeView(
-      padding: Dimens.size_0,
-      title: Text(
-        CoreResources.strings.topBilledCast,
-        style: CoreResources.textStyles.inter.mediumTextBold.copyWith(
-          color: Colors.white,
-        ),
-      ),
-      button: Container(),
-      child: SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
-        child: Padding(
-          padding: EdgeInsets.only(top: Dimens.size_5.h),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Dimens.size_8.horizontalSpace,
-              castItem(),
-              Dimens.size_8.horizontalSpace,
-              castItem(),
-              Dimens.size_8.horizontalSpace,
-              castItem(),
-              Dimens.size_8.horizontalSpace,
-              castItem(),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
   Widget castItem() {
     return GestureDetector(
       onTap: () {
@@ -388,7 +356,9 @@ class _DetailMovieScreenBodyState extends State<_DetailMovieScreenBody> {
           children: [
             Dimens.size_8.horizontalSpace,
             ...list.map(
-              (item) => CardItem(navigateToDetail: widget.navigateToDetail, item: item),
+              (item) => Container(
+                  margin: const EdgeInsets.all(Dimens.size_4),
+                  child: CardItem(navigateToDetail: widget.navigateToDetail, item: item)),
             ),
           ],
         ),

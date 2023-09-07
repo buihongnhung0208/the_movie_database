@@ -51,6 +51,8 @@ class _DetailCastScreenBody extends StatefulWidget {
 }
 
 class _DetailCastScreenBodyState extends State<_DetailCastScreenBody> {
+  bool isShowMore = true;
+
   @override
   void initState() {
     super.initState();
@@ -108,12 +110,7 @@ class _DetailCastScreenBodyState extends State<_DetailCastScreenBody> {
                                 child: CachedNetworkImage(
                                   imageUrl: banners[index],
                                   width: double.infinity,
-                                  // height: Dimens.size_166.w,
                                   fit: BoxFit.contain,
-                                  // maxHeightDiskCache: Dimens.size_498.w.toInt(),
-                                  // maxWidthDiskCache: 1074.w.toInt(),
-                                  // memCacheHeight: Dimens.size_498.w.toInt(),
-                                  // memCacheWidth: 1074.w.toInt(),
                                 ),
                               ),
                             ),
@@ -121,19 +118,7 @@ class _DetailCastScreenBodyState extends State<_DetailCastScreenBody> {
                         },
                       ),
                       Dimens.size_10.verticalSpace,
-                      if (state.detailCast.biography.isNotEmpty)
-                        Text(
-                          CoreResources.strings.biography,
-                          style: CoreResources.textStyles.inter.mediumTextBold.copyWith(
-                            color: Colors.white,
-                          ),
-                        ),
-                      Text(
-                        state.detailCast.biography,
-                        style: CoreResources.textStyles.inter.smallTextRegular.copyWith(
-                          color: Colors.white,
-                        ),
-                      ),
+                      if (state.detailCast.biography.isNotEmpty) _bio(state.detailCast.biography),
                       Dimens.size_10.verticalSpace,
                       _knownFor(widget.person.knownFor),
                     ],
@@ -144,6 +129,63 @@ class _DetailCastScreenBodyState extends State<_DetailCastScreenBody> {
           ),
         );
       },
+    );
+  }
+
+  Widget _bio(String desc) {
+    int maxLines = desc != ''
+        ? Utils.getLineOfParagraph(
+            MediaQuery.of(context).size.width - Dimens.size_32,
+            desc,
+            CoreResources.textStyles.inter.smallTextLight,
+          )
+        : 8;
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          CoreResources.strings.biography,
+          style: CoreResources.textStyles.inter.smallTextMedium.copyWith(
+            color: Colors.white,
+          ),
+          textAlign: TextAlign.left,
+        ),
+        Text(
+          desc,
+          style: CoreResources.textStyles.inter.smallTextRegular.copyWith(
+            color: Colors.white,
+          ),
+          textAlign: TextAlign.left,
+          maxLines: isShowMore ? 8 : maxLines,
+        ),
+        maxLines > 8
+            ? InkWell(
+                onTap: () {
+                  setState(() {
+                    isShowMore = !isShowMore;
+                  });
+                },
+                child: RichText(
+                  text: TextSpan(
+                    text: "...\t\t",
+                    style: CoreResources.textStyles.inter.mediumTextMedium.copyWith(
+                      color: Colors.white,
+                    ),
+                    children: [
+                      TextSpan(
+                        text: isShowMore ? "See more" : "See less",
+                        style: CoreResources.textStyles.inter.smallTextMedium.copyWith(
+                          color: AppColors.main,
+                        ),
+                      ),
+                    ],
+                  ),
+                  textAlign: TextAlign.left,
+                ),
+              )
+            : Container(),
+      ],
     );
   }
 
