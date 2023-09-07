@@ -32,6 +32,8 @@ mixin _$PersonResponseObject {
   String get originalName => throw _privateConstructorUsedError;
   @JsonKey(name: 'profile_path')
   String get profilePath => throw _privateConstructorUsedError;
+  @JsonKey(name: 'biography')
+  String get biography => throw _privateConstructorUsedError;
   @JsonKey(name: 'known_for')
   List<MovieResponseObject> get knownFor => throw _privateConstructorUsedError;
 
@@ -54,6 +56,7 @@ abstract class $PersonResponseObjectCopyWith<$Res> {
       @JsonKey(name: 'name') String name,
       @JsonKey(name: 'original_name') String originalName,
       @JsonKey(name: 'profile_path') String profilePath,
+      @JsonKey(name: 'biography') String biography,
       @JsonKey(name: 'known_for') List<MovieResponseObject> knownFor});
 }
 
@@ -77,6 +80,7 @@ class _$PersonResponseObjectCopyWithImpl<$Res,
     Object? name = null,
     Object? originalName = null,
     Object? profilePath = null,
+    Object? biography = null,
     Object? knownFor = null,
   }) {
     return _then(_value.copyWith(
@@ -104,6 +108,10 @@ class _$PersonResponseObjectCopyWithImpl<$Res,
           ? _value.profilePath
           : profilePath // ignore: cast_nullable_to_non_nullable
               as String,
+      biography: null == biography
+          ? _value.biography
+          : biography // ignore: cast_nullable_to_non_nullable
+              as String,
       knownFor: null == knownFor
           ? _value.knownFor
           : knownFor // ignore: cast_nullable_to_non_nullable
@@ -127,6 +135,7 @@ abstract class _$$_PersonResponseObjectCopyWith<$Res>
       @JsonKey(name: 'name') String name,
       @JsonKey(name: 'original_name') String originalName,
       @JsonKey(name: 'profile_path') String profilePath,
+      @JsonKey(name: 'biography') String biography,
       @JsonKey(name: 'known_for') List<MovieResponseObject> knownFor});
 }
 
@@ -147,6 +156,7 @@ class __$$_PersonResponseObjectCopyWithImpl<$Res>
     Object? name = null,
     Object? originalName = null,
     Object? profilePath = null,
+    Object? biography = null,
     Object? knownFor = null,
   }) {
     return _then(_$_PersonResponseObject(
@@ -174,6 +184,10 @@ class __$$_PersonResponseObjectCopyWithImpl<$Res>
           ? _value.profilePath
           : profilePath // ignore: cast_nullable_to_non_nullable
               as String,
+      biography: null == biography
+          ? _value.biography
+          : biography // ignore: cast_nullable_to_non_nullable
+              as String,
       knownFor: null == knownFor
           ? _value._knownFor
           : knownFor // ignore: cast_nullable_to_non_nullable
@@ -192,6 +206,7 @@ class _$_PersonResponseObject implements _PersonResponseObject {
       @JsonKey(name: 'name') this.name = "",
       @JsonKey(name: 'original_name') this.originalName = "",
       @JsonKey(name: 'profile_path') this.profilePath = "",
+      @JsonKey(name: 'biography') this.biography = "",
       @JsonKey(name: 'known_for')
       final List<MovieResponseObject> knownFor = const []})
       : _knownFor = knownFor;
@@ -217,6 +232,9 @@ class _$_PersonResponseObject implements _PersonResponseObject {
   @override
   @JsonKey(name: 'profile_path')
   final String profilePath;
+  @override
+  @JsonKey(name: 'biography')
+  final String biography;
   final List<MovieResponseObject> _knownFor;
   @override
   @JsonKey(name: 'known_for')
@@ -228,7 +246,7 @@ class _$_PersonResponseObject implements _PersonResponseObject {
 
   @override
   String toString() {
-    return 'PersonResponseObject(adult: $adult, gender: $gender, id: $id, name: $name, originalName: $originalName, profilePath: $profilePath, knownFor: $knownFor)';
+    return 'PersonResponseObject(adult: $adult, gender: $gender, id: $id, name: $name, originalName: $originalName, profilePath: $profilePath, biography: $biography, knownFor: $knownFor)';
   }
 
   @override
@@ -244,6 +262,8 @@ class _$_PersonResponseObject implements _PersonResponseObject {
                 other.originalName == originalName) &&
             (identical(other.profilePath, profilePath) ||
                 other.profilePath == profilePath) &&
+            (identical(other.biography, biography) ||
+                other.biography == biography) &&
             const DeepCollectionEquality().equals(other._knownFor, _knownFor));
   }
 
@@ -257,6 +277,7 @@ class _$_PersonResponseObject implements _PersonResponseObject {
       name,
       originalName,
       profilePath,
+      biography,
       const DeepCollectionEquality().hash(_knownFor));
 
   @JsonKey(ignore: true)
@@ -282,6 +303,7 @@ abstract class _PersonResponseObject implements PersonResponseObject {
       @JsonKey(name: 'name') final String name,
       @JsonKey(name: 'original_name') final String originalName,
       @JsonKey(name: 'profile_path') final String profilePath,
+      @JsonKey(name: 'biography') final String biography,
       @JsonKey(name: 'known_for')
       final List<MovieResponseObject> knownFor}) = _$_PersonResponseObject;
 
@@ -306,6 +328,9 @@ abstract class _PersonResponseObject implements PersonResponseObject {
   @override
   @JsonKey(name: 'profile_path')
   String get profilePath;
+  @override
+  @JsonKey(name: 'biography')
+  String get biography;
   @override
   @JsonKey(name: 'known_for')
   List<MovieResponseObject> get knownFor;

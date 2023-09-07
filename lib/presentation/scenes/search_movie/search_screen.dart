@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:the_movie_database/di/assembler.dart';
+import 'package:the_movie_database/model/person_response_object/person_response_object.dart';
 import 'package:the_movie_database/presentation/common/card_item.dart';
 import 'package:the_movie_database/presentation/common/cast_item.dart';
 import 'package:the_movie_database/presentation/common/input_field.dart';
@@ -13,7 +14,7 @@ import 'package:the_movie_database/presentation/resources/resources.dart';
 import 'bloc/search_cubit.dart';
 
 class SearchScreen extends StatelessWidget {
-  final void Function(BuildContext, String) navigateToDetailCast;
+  final void Function(BuildContext, PersonResponseObject) navigateToDetailCast;
 
   const SearchScreen({
     super.key,
@@ -34,7 +35,7 @@ class SearchScreen extends StatelessWidget {
 }
 
 class _SearchScreenBody extends StatefulWidget {
-  final void Function(BuildContext, String) navigateToDetailCast;
+  final void Function(BuildContext, PersonResponseObject) navigateToDetailCast;
 
   _SearchScreenBody({
     required this.navigateToDetailCast,

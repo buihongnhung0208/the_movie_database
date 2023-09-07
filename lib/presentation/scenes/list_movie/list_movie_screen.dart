@@ -63,6 +63,7 @@ class _ListMovieScreenBodyState extends State<_ListMovieScreenBody> {
   @override
   Widget build(BuildContext context) {
     return BaseScaffold(
+      scaffoldBackgroundColor: AppColors.ff042541,
       toolbar: AppBar(
         centerTitle: true,
         backgroundColor: AppColors.ff042541,

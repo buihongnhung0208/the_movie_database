@@ -15,6 +15,7 @@ _$_PersonResponseObject _$$_PersonResponseObjectFromJson(
       name: json['name'] as String? ?? "",
       originalName: json['original_name'] as String? ?? "",
       profilePath: json['profile_path'] as String? ?? "",
+      biography: json['biography'] as String? ?? "",
       knownFor: (json['known_for'] as List<dynamic>?)
               ?.map((e) =>
                   MovieResponseObject.fromJson(e as Map<String, dynamic>))
@@ -31,5 +32,6 @@ Map<String, dynamic> _$$_PersonResponseObjectToJson(
       'name': instance.name,
       'original_name': instance.originalName,
       'profile_path': instance.profilePath,
+      'biography': instance.biography,
       'known_for': instance.knownFor,
     };
