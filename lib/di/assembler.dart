@@ -4,6 +4,7 @@ import 'package:the_movie_database/data/repository/repository.dart';
 import 'package:the_movie_database/domain/repository/repository_type.dart';
 import 'package:the_movie_database/domain/usecases/get_detail_cast_usecase.dart';
 import 'package:the_movie_database/domain/usecases/get_detail_movie_usecase.dart';
+import 'package:the_movie_database/domain/usecases/get_list_images_usecase.dart';
 import 'package:the_movie_database/domain/usecases/get_list_movies_usecase.dart';
 import 'package:the_movie_database/domain/usecases/search_person_usecase.dart';
 
@@ -27,5 +28,8 @@ void registerDependencies() {
   );
   assembler.registerLazySingleton(
     () => GetDetailCastUseCase(assembler.get()),
+  );
+  assembler.registerLazySingleton(
+    () => GetListImagesUseCase(assembler.get()),
   );
 }

@@ -12,7 +12,6 @@ class SearchCubit extends Cubit<SearchState> {
   final SearchPersonUseCase _searchPersonUseCase;
 
   Future<void> searchPerson({int page = 1, String text = ""}) async {
-    print('pagepage $page $text');
     emit(
       state.copyWith(
         isLoading: true,

@@ -31,6 +31,7 @@ class DetailCastScreen extends StatelessWidget {
     return BlocProvider(
       create: (context) => DetailCastCubit(
         assembler.get(),
+        assembler.get(),
       )..getData(person.id.toString()),
       child: _DetailCastScreenBody(
         navigateToDetail: navigateToDetail,
@@ -62,7 +63,7 @@ class _DetailCastScreenBodyState extends State<_DetailCastScreenBody> {
   Widget build(BuildContext context) {
     return BlocBuilder<DetailCastCubit, DetailCastState>(
       builder: (context, state) {
-        final List<String> banners = [Utils.generateImageUrl(widget.person.profilePath)];
+        final banners = state.listImage.map((item) => Utils.generateImageUrl(item.filePath)).toList();
         return BaseScaffold(
           scaffoldBackgroundColor: AppColors.ff042541,
           toolbar: AppBar(
@@ -92,7 +93,6 @@ class _DetailCastScreenBodyState extends State<_DetailCastScreenBody> {
                             autoPlay: banners.length != 1,
                             autoPlayInterval: const Duration(seconds: 2),
                             enlargeCenterPage: true,
-                            // aspectRatio: 16 / 9,
                             viewportFraction: 1,
                             onPageChanged: (index, reason) {}),
                         disableGesture: true,

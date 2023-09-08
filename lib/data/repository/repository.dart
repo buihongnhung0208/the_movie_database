@@ -1,10 +1,12 @@
 import 'package:mg_api_service/wrapper/network_error.dart';
 import 'package:mg_api_service/wrapper/result.dart';
 import 'package:the_movie_database/api_service/core/authentication/detail_movie_api_input.dart';
+import 'package:the_movie_database/api_service/core/authentication/images_person_api_input.dart';
 import 'package:the_movie_database/api_service/core/authentication/list_movies_api_input.dart';
 import 'package:the_movie_database/api_service/core/authentication/search_person_api_input.dart';
 import 'package:the_movie_database/api_service/core_api_service.dart';
 import 'package:the_movie_database/domain/repository/repository_type.dart';
+import 'package:the_movie_database/model/list_images_response_object/list_images_response_object.dart';
 import 'package:the_movie_database/model/list_response_object/list_response_object.dart';
 import 'package:the_movie_database/model/movie_response_object/movie_response_object.dart';
 import 'package:the_movie_database/model/person_response_object/person_response_object.dart';
@@ -78,6 +80,24 @@ class Repository implements RepositoryType {
       success: (jsonObject) {
         try {
           return Result.success(jsonObject ?? const PersonResponseObject());
+        } catch (e) {
+          return Result.failure(NetworkError.type(error: e.toString()));
+        }
+      },
+      failure: (networkError) => Result.failure(networkError),
+    );
+  }
+
+  @override
+  Future<Result<ListImagesResponseObject, NetworkError>> getImagesPerson(ImagesPersonAPIInput input) async{
+    final result = await coreAPIService.request(
+      input,
+      ListImagesResponseObject.fromJson,
+    );
+    return result.when(
+      success: (jsonObject) {
+        try {
+          return Result.success(jsonObject ?? const ListImagesResponseObject());
         } catch (e) {
           return Result.failure(NetworkError.type(error: e.toString()));
         }
