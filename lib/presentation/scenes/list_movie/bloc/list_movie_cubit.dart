@@ -20,27 +20,12 @@ class ListMovieCubit extends Cubit<ListMovieState> {
         page: page,
       ),
     );
-    String url = '';
-    print('titletitle $title');
-    switch (title) {
-      case 'Popular':
-        {
-          url = MovieType.popular.url;
-        }
-        break;
-      case 'Top Rated':
-        {
-          url = MovieType.topRated.url;
-        }
-        break;
-      case 'Upcoming':
-        {
-          url = MovieType.upcoming.url;
-        }
-        break;
-      default:
-        break;
-    }
+    final url = switch (title) {
+      'Popular' => MovieType.popular.url,
+      'Top Rated' => MovieType.topRated.url,
+      'Upcoming' => MovieType.upcoming.url,
+      _ => ''
+    };
     final getListInput = ListMoviesAPIInput(
       ListMoviesParams(page: page),
       url,
@@ -57,7 +42,6 @@ class ListMovieCubit extends Cubit<ListMovieState> {
               page: listObject.page + 1,
             ),
           );
-          print(state.listMovies);
         } catch (e) {
           emit(state.copyWith(isLoading: false));
         }
@@ -69,11 +53,11 @@ class ListMovieCubit extends Cubit<ListMovieState> {
   }
 
   void setLoadMore(String? title) {
-    if (state.isLoading == false) getListMovies(page: state.page, title: title ?? "");
+    if (state.isLoading == false) getListMovies(page: state.page, title: title ?? '');
   }
 
   void refreshList(String? title) {
-    if (state.isLoading == false) getListMovies(page: 1, title: title ?? "");
+    if (state.isLoading == false) getListMovies(page: 1, title: title ?? '');
   }
 
   Future<void> getData(String? title) async {

@@ -78,7 +78,7 @@ class HomeCubit extends Cubit<HomeState> {
       ),
     );
     final getListInput = ListMoviesAPIInput(
-      const ListMoviesParams(language: 'en-US', page: 1),
+      const ListMoviesParams(),
       MovieType.upcoming.url,
     );
     final listMovies = await _getListMoviesUseCase.call(getListInput);
