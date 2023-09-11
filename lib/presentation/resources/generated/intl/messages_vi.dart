@@ -27,6 +27,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "home": MessageLookupByLibrary.simpleMessage("Trang chủ"),
         "known_for": MessageLookupByLibrary.simpleMessage("Phim đã tham gia"),
         "popular": MessageLookupByLibrary.simpleMessage("Phổ biến"),
+        "something_wrong":
+            MessageLookupByLibrary.simpleMessage("Something went wrong"),
         "top_rated": MessageLookupByLibrary.simpleMessage("Xếp hạng cao"),
         "upcoming": MessageLookupByLibrary.simpleMessage("Sắp diễn ra")
       };

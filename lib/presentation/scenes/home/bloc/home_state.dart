@@ -8,6 +8,7 @@ class HomeState extends Equatable {
     required this.listTopRated,
     required this.isLoadingUpcoming,
     required this.listUpcoming,
+    required this.error,
   });
 
   final bool isLoading;
@@ -16,6 +17,7 @@ class HomeState extends Equatable {
   final List<MovieResponseObject> listTopRated;
   final bool isLoadingUpcoming;
   final List<MovieResponseObject> listUpcoming;
+  final String error;
 
   factory HomeState.initial() {
     return const HomeState(
@@ -25,6 +27,7 @@ class HomeState extends Equatable {
       listTopRated: [],
       isLoadingUpcoming: false,
       listUpcoming: [],
+      error: '',
     );
   }
 
@@ -35,6 +38,7 @@ class HomeState extends Equatable {
     List<MovieResponseObject>? listTopRated,
     bool? isLoadingUpcoming,
     List<MovieResponseObject>? listUpcoming,
+    String? error,
   }) =>
       HomeState(
         isLoading: isLoading ?? this.isLoading,
@@ -43,6 +47,7 @@ class HomeState extends Equatable {
         listTopRated: listTopRated ?? this.listTopRated,
         isLoadingUpcoming: isLoadingUpcoming ?? this.isLoadingUpcoming,
         listUpcoming: listUpcoming ?? this.listUpcoming,
+        error: error ?? this.error,
       );
 
   @override
@@ -53,5 +58,6 @@ class HomeState extends Equatable {
         listTopRated,
         isLoadingUpcoming,
         listUpcoming,
+        error,
       ];
 }

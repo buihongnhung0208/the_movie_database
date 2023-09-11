@@ -1,4 +1,5 @@
 import 'package:base_scaffold/base_scaffold.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -6,9 +7,11 @@ import 'package:the_movie_database/di/assembler.dart';
 import 'package:the_movie_database/model/movie_response_object/movie_response_object.dart';
 import 'package:the_movie_database/presentation/common/card_item.dart';
 import 'package:the_movie_database/presentation/common/short_info_view.dart';
+import 'package:the_movie_database/presentation/common/snack_bar.dart';
 import 'package:the_movie_database/presentation/resources/dimens.dart';
 import 'package:the_movie_database/presentation/resources/generated/colors.gen.dart';
 import 'package:the_movie_database/presentation/resources/resources.dart';
+import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
 import 'bloc/home_cubit.dart';
 
@@ -28,9 +31,34 @@ class HomeScreen extends StatelessWidget {
       create: (context) => HomeCubit(
         assembler.get(),
       )..getData(),
-      child: _NewHomeScreenBody(
-        navigateToList: navigateToList,
-        navigateToDetail: navigateToDetail,
+      child: Builder(
+        builder: (context) => BlocListener<HomeCubit, HomeState>(
+          listener: (context, state) {
+            if (state.error.isNotEmpty) {
+              showTopSnackBar(
+                Overlay.of(context),
+                CustomSnackBar.error(
+                  icon: Icon(
+                    CupertinoIcons.xmark_circle,
+                    size: Dimens.size_24.r,
+                    color: AppColors.ff042541,
+                  ),
+                  message: Text(
+                    state.error,
+                    style: CoreResources.textStyles.inter.mediumTextRegular.copyWith(
+                      color: AppColors.ff042541,
+                    ),
+                  ),
+                  backgroundColor: Colors.white,
+                ),
+              );
+            }
+          },
+          child: _NewHomeScreenBody(
+            navigateToList: navigateToList,
+            navigateToDetail: navigateToDetail,
+          ),
+        ),
       ),
     );
   }

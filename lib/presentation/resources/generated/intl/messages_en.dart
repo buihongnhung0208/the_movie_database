@@ -27,6 +27,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "home": MessageLookupByLibrary.simpleMessage("Home"),
         "known_for": MessageLookupByLibrary.simpleMessage("Known for"),
         "popular": MessageLookupByLibrary.simpleMessage("Popular"),
+        "something_wrong":
+            MessageLookupByLibrary.simpleMessage("Something went wrong"),
         "top_rated": MessageLookupByLibrary.simpleMessage("Top Rated"),
         "upcoming": MessageLookupByLibrary.simpleMessage("Upcoming")
       };

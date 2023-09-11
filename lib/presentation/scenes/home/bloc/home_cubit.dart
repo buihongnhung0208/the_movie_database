@@ -2,10 +2,9 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:the_movie_database/api_service/core/authentication/list-movies/list_movies_params.dart';
 import 'package:the_movie_database/api_service/core/authentication/list_movies_api_input.dart';
-import 'package:the_movie_database/api_service/core_api_service.dart';
 import 'package:the_movie_database/domain/usecases/get_list_movies_usecase.dart';
-import 'package:the_movie_database/model/list_response_object/list_response_object.dart';
 import 'package:the_movie_database/model/movie_response_object/movie_response_object.dart';
+import 'package:the_movie_database/presentation/resources/resources.dart';
 import 'package:the_movie_database/utils/utils.dart';
 
 part 'home_state.dart';
@@ -31,11 +30,17 @@ class HomeCubit extends Cubit<HomeState> {
           state.copyWith(
             isLoading: false,
             listPopular: listObject.results,
+            error: '',
           ),
         );
       },
       failure: (networkError) {
-        emit(state.copyWith(isLoading: false));
+        emit(
+          state.copyWith(
+            isLoading: false,
+            error: networkError.localizedErrorMessage ?? CoreResources.strings.something_wrong,
+          ),
+        );
       },
     );
   }
@@ -54,19 +59,21 @@ class HomeCubit extends Cubit<HomeState> {
 
     listMovies.when(
       success: (listObject) {
-        try {
-          emit(
-            state.copyWith(
-              isLoadingTopRated: false,
-              listTopRated: listObject.results,
-            ),
-          );
-        } catch (e) {
-          emit(state.copyWith(isLoadingTopRated: false));
-        }
+        emit(
+          state.copyWith(
+            isLoadingTopRated: false,
+            listTopRated: listObject.results,
+            error: '',
+          ),
+        );
       },
       failure: (networkError) {
-        emit(state.copyWith(isLoadingTopRated: false));
+        emit(
+          state.copyWith(
+            isLoadingTopRated: false,
+            error: networkError.localizedErrorMessage ?? CoreResources.strings.something_wrong,
+          ),
+        );
       },
     );
   }
@@ -85,19 +92,21 @@ class HomeCubit extends Cubit<HomeState> {
 
     listMovies.when(
       success: (listObject) {
-        try {
-          emit(
-            state.copyWith(
-              isLoadingUpcoming: false,
-              listUpcoming: listObject.results,
-            ),
-          );
-        } catch (e) {
-          emit(state.copyWith(isLoadingUpcoming: false));
-        }
+        emit(
+          state.copyWith(
+            isLoadingUpcoming: false,
+            listUpcoming: listObject.results,
+            error: '',
+          ),
+        );
       },
       failure: (networkError) {
-        emit(state.copyWith(isLoadingUpcoming: false));
+        emit(
+          state.copyWith(
+            isLoadingUpcoming: false,
+            error: networkError.localizedErrorMessage ?? CoreResources.strings.something_wrong,
+          ),
+        );
       },
     );
   }
