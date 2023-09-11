@@ -95,6 +95,7 @@ GoRoute detailMovieRoute({
           NavigationUtils.getSubRouteName(
             [rootSubRouteName],
           ),
+          extra: {'id': id},
         ),
         navigateToDetailCast: (context, id) => GoRouter.of(context).pushNamed(
           NavigationUtils.getSubRouteName(

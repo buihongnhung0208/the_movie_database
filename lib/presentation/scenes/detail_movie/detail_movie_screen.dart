@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:the_movie_database/di/assembler.dart';
+import 'package:the_movie_database/presentation/common/card_item.dart';
 import 'package:the_movie_database/presentation/common/short_info_view.dart';
 import 'package:the_movie_database/presentation/resources/dimens.dart';
 import 'package:the_movie_database/presentation/resources/generated/colors.gen.dart';
@@ -31,6 +32,7 @@ class DetailMovieScreen extends StatelessWidget {
     return BlocProvider(
       lazy: false,
       create: (context) => DetailMovieCubit(
+        assembler.get(),
         assembler.get(),
       )..getData(id),
       child: _DetailMovieScreenBody(
@@ -274,7 +276,7 @@ class _DetailMovieScreenBodyState extends State<_DetailMovieScreenBody> {
                       Dimens.size_10.verticalSpace,
                       _topBilledCast(),
                       Dimens.size_10.verticalSpace,
-                      _recommendations(),
+                      _recommendations(state.listRecommendations),
                     ],
                   ),
                 ),
@@ -368,7 +370,7 @@ class _DetailMovieScreenBodyState extends State<_DetailMovieScreenBody> {
     );
   }
 
-  Widget _recommendations() {
+  Widget _recommendations(list) {
     return ListHomeView(
       padding: 0,
       title: Text(
@@ -384,10 +386,9 @@ class _DetailMovieScreenBodyState extends State<_DetailMovieScreenBody> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Dimens.size_8.horizontalSpace,
-            // CardItem(navigateToDetail: widget.navigateToDetail),
-            // CardItem(navigateToDetail: widget.navigateToDetail),
-            // CardItem(navigateToDetail: widget.navigateToDetail),
-            // CardItem(navigateToDetail: widget.navigateToDetail),
+            ...list.map(
+              (item) => CardItem(navigateToDetail: widget.navigateToDetail, item: item),
+            ),
           ],
         ),
       ),
