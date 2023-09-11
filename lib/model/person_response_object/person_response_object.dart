@@ -16,6 +16,7 @@ class PersonResponseObject with _$PersonResponseObject {
     @JsonKey(name: 'name') @Default("") String name,
     @JsonKey(name: 'original_name') @Default("") String originalName,
     @JsonKey(name: 'profile_path') @Default("") String profilePath,
+    @JsonKey(name: 'biography') @Default("") String biography,
     @JsonKey(name: 'known_for') @Default([]) List<MovieResponseObject> knownFor,
 
   }) = _PersonResponseObject;

@@ -8,7 +8,7 @@ import 'package:the_movie_database/utils/utils.dart';
 import 'cached_network_image_wrapper.dart';
 
 class CastItem extends StatelessWidget {
-  final void Function(BuildContext, String)? navigateToDetailCast;
+  final void Function(BuildContext, PersonResponseObject)? navigateToDetailCast;
   final PersonResponseObject item;
 
   const CastItem({
@@ -21,7 +21,7 @@ class CastItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        navigateToDetailCast?.call(context, "1");
+        navigateToDetailCast?.call(context, item);
       },
       child: Column(
         children: [

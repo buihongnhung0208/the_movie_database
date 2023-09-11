@@ -65,6 +65,7 @@ class _NewHomeScreenBodyState extends State<_NewHomeScreenBody> {
     return BlocBuilder<HomeCubit, HomeState>(
       builder: (context, state) {
         return BaseScaffold(
+          scaffoldBackgroundColor: AppColors.ff042541,
           toolbar: AppBar(
             centerTitle: true,
             backgroundColor: AppColors.ff042541,
@@ -159,7 +160,9 @@ class _NewHomeScreenBodyState extends State<_NewHomeScreenBody> {
                 children: [
                   Dimens.size_16.horizontalSpace,
                   ...list.map(
-                    (item) => CardItem(navigateToDetail: widget.navigateToDetail, item: item),
+                    (item) => Container(
+                        margin: const EdgeInsets.all(Dimens.size_4),
+                        child: CardItem(navigateToDetail: widget.navigateToDetail, item: item)),
                   ),
                   Dimens.size_8.verticalSpace,
                 ],

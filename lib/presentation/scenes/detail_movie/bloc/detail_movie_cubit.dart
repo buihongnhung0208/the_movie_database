@@ -20,9 +20,9 @@ class DetailMovieCubit extends Cubit<DetailMovieState> {
 
   Future<void> getDetailMovie({required String id}) async {
     emit(state.copyWith(isLoading: true));
-    final getDetailMovieInput = DetailMovieAPIInput(
+    final getDetailMovieInput = DetailAPIInput(
       const DetailMovieParams(),
-      id,
+      'movie/$id',
     );
     final detailMovie = await _getDetailMovieUseCase.call(getDetailMovieInput);
     detailMovie.when(

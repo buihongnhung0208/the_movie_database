@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
+import 'package:the_movie_database/model/person_response_object/person_response_object.dart';
 import 'package:the_movie_database/presentation/navigation/navigation_utils.dart';
 import 'package:the_movie_database/presentation/scenes/detail_cast/detail_cast_screen.dart';
 import 'package:the_movie_database/presentation/scenes/detail_movie/detail_movie_screen.dart';
@@ -126,13 +127,20 @@ GoRoute detailCastRoute({
   );
 
   return GoRoute(
-    name: rootSubRouteName,
-    path: MainRoutes.detailCast,
-    parentNavigatorKey: rootNavigatorKey,
-    pageBuilder: (context, state) => const CupertinoPage(
-      child: DetailCastScreen(),
-    ),
-  );
+      name: rootSubRouteName,
+      path: MainRoutes.detailCast,
+      parentNavigatorKey: rootNavigatorKey,
+      pageBuilder: (context, state) => CupertinoPage(
+            child: DetailCastScreen(
+                // navigateToDetail: (context, id) => GoRouter.of(context).pushNamed(
+                //       NavigationUtils.getSubRouteName(
+                //         [rootSubRouteName],
+                //       ),
+                //       extra: {'id': id},
+                //     ),
+                person: (state.extra as Map)['id']),
+          ),
+      );
 }
 
 GoRoute searchRoute({
@@ -150,9 +158,9 @@ GoRoute searchRoute({
       child: SearchScreen(
         navigateToDetailCast: (context, id) => GoRouter.of(context).pushNamed(
           NavigationUtils.getSubRouteName(
-            [rootSubRouteName,MainRoutes.detailCast],
+            [rootSubRouteName, MainRoutes.detailCast],
           ),
-          extra: {'id': id},
+          extra: {'id': id as PersonResponseObject},
         ),
       ),
     ),
