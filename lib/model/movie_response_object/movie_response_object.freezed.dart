@@ -38,6 +38,14 @@ mixin _$MovieResponseObject {
   double get voteAverage => throw _privateConstructorUsedError;
   @JsonKey(name: 'vote_count')
   int get voteCount => throw _privateConstructorUsedError;
+  @JsonKey(name: 'status')
+  String get status => throw _privateConstructorUsedError;
+  @JsonKey(name: 'revenue')
+  int get revenue => throw _privateConstructorUsedError;
+  @JsonKey(name: 'video')
+  bool get video => throw _privateConstructorUsedError;
+  @JsonKey(name: 'genres')
+  List<GenreObject> get genres => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -60,7 +68,11 @@ abstract class $MovieResponseObjectCopyWith<$Res> {
       @JsonKey(name: 'poster_path') String posterPath,
       @JsonKey(name: 'title') String title,
       @JsonKey(name: 'vote_average') double voteAverage,
-      @JsonKey(name: 'vote_count') int voteCount});
+      @JsonKey(name: 'vote_count') int voteCount,
+      @JsonKey(name: 'status') String status,
+      @JsonKey(name: 'revenue') int revenue,
+      @JsonKey(name: 'video') bool video,
+      @JsonKey(name: 'genres') List<GenreObject> genres});
 }
 
 /// @nodoc
@@ -85,6 +97,10 @@ class _$MovieResponseObjectCopyWithImpl<$Res, $Val extends MovieResponseObject>
     Object? title = null,
     Object? voteAverage = null,
     Object? voteCount = null,
+    Object? status = null,
+    Object? revenue = null,
+    Object? video = null,
+    Object? genres = null,
   }) {
     return _then(_value.copyWith(
       backdropPath: null == backdropPath
@@ -123,6 +139,22 @@ class _$MovieResponseObjectCopyWithImpl<$Res, $Val extends MovieResponseObject>
           ? _value.voteCount
           : voteCount // ignore: cast_nullable_to_non_nullable
               as int,
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as String,
+      revenue: null == revenue
+          ? _value.revenue
+          : revenue // ignore: cast_nullable_to_non_nullable
+              as int,
+      video: null == video
+          ? _value.video
+          : video // ignore: cast_nullable_to_non_nullable
+              as bool,
+      genres: null == genres
+          ? _value.genres
+          : genres // ignore: cast_nullable_to_non_nullable
+              as List<GenreObject>,
     ) as $Val);
   }
 }
@@ -144,7 +176,11 @@ abstract class _$$_MovieResponseObjectCopyWith<$Res>
       @JsonKey(name: 'poster_path') String posterPath,
       @JsonKey(name: 'title') String title,
       @JsonKey(name: 'vote_average') double voteAverage,
-      @JsonKey(name: 'vote_count') int voteCount});
+      @JsonKey(name: 'vote_count') int voteCount,
+      @JsonKey(name: 'status') String status,
+      @JsonKey(name: 'revenue') int revenue,
+      @JsonKey(name: 'video') bool video,
+      @JsonKey(name: 'genres') List<GenreObject> genres});
 }
 
 /// @nodoc
@@ -167,6 +203,10 @@ class __$$_MovieResponseObjectCopyWithImpl<$Res>
     Object? title = null,
     Object? voteAverage = null,
     Object? voteCount = null,
+    Object? status = null,
+    Object? revenue = null,
+    Object? video = null,
+    Object? genres = null,
   }) {
     return _then(_$_MovieResponseObject(
       backdropPath: null == backdropPath
@@ -205,6 +245,22 @@ class __$$_MovieResponseObjectCopyWithImpl<$Res>
           ? _value.voteCount
           : voteCount // ignore: cast_nullable_to_non_nullable
               as int,
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as String,
+      revenue: null == revenue
+          ? _value.revenue
+          : revenue // ignore: cast_nullable_to_non_nullable
+              as int,
+      video: null == video
+          ? _value.video
+          : video // ignore: cast_nullable_to_non_nullable
+              as bool,
+      genres: null == genres
+          ? _value._genres
+          : genres // ignore: cast_nullable_to_non_nullable
+              as List<GenreObject>,
     ));
   }
 }
@@ -221,7 +277,12 @@ class _$_MovieResponseObject implements _MovieResponseObject {
       @JsonKey(name: 'poster_path') this.posterPath = '',
       @JsonKey(name: 'title') this.title = '',
       @JsonKey(name: 'vote_average') this.voteAverage = 0.0,
-      @JsonKey(name: 'vote_count') this.voteCount = 0});
+      @JsonKey(name: 'vote_count') this.voteCount = 0,
+      @JsonKey(name: 'status') this.status = "",
+      @JsonKey(name: 'revenue') this.revenue = 0,
+      @JsonKey(name: 'video') this.video = false,
+      @JsonKey(name: 'genres') final List<GenreObject> genres = const []})
+      : _genres = genres;
 
   factory _$_MovieResponseObject.fromJson(Map<String, dynamic> json) =>
       _$$_MovieResponseObjectFromJson(json);
@@ -253,10 +314,27 @@ class _$_MovieResponseObject implements _MovieResponseObject {
   @override
   @JsonKey(name: 'vote_count')
   final int voteCount;
+  @override
+  @JsonKey(name: 'status')
+  final String status;
+  @override
+  @JsonKey(name: 'revenue')
+  final int revenue;
+  @override
+  @JsonKey(name: 'video')
+  final bool video;
+  final List<GenreObject> _genres;
+  @override
+  @JsonKey(name: 'genres')
+  List<GenreObject> get genres {
+    if (_genres is EqualUnmodifiableListView) return _genres;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_genres);
+  }
 
   @override
   String toString() {
-    return 'MovieResponseObject(backdropPath: $backdropPath, id: $id, originalLanguage: $originalLanguage, originalTitle: $originalTitle, overview: $overview, posterPath: $posterPath, title: $title, voteAverage: $voteAverage, voteCount: $voteCount)';
+    return 'MovieResponseObject(backdropPath: $backdropPath, id: $id, originalLanguage: $originalLanguage, originalTitle: $originalTitle, overview: $overview, posterPath: $posterPath, title: $title, voteAverage: $voteAverage, voteCount: $voteCount, status: $status, revenue: $revenue, video: $video, genres: $genres)';
   }
 
   @override
@@ -279,7 +357,11 @@ class _$_MovieResponseObject implements _MovieResponseObject {
             (identical(other.voteAverage, voteAverage) ||
                 other.voteAverage == voteAverage) &&
             (identical(other.voteCount, voteCount) ||
-                other.voteCount == voteCount));
+                other.voteCount == voteCount) &&
+            (identical(other.status, status) || other.status == status) &&
+            (identical(other.revenue, revenue) || other.revenue == revenue) &&
+            (identical(other.video, video) || other.video == video) &&
+            const DeepCollectionEquality().equals(other._genres, _genres));
   }
 
   @JsonKey(ignore: true)
@@ -294,7 +376,11 @@ class _$_MovieResponseObject implements _MovieResponseObject {
       posterPath,
       title,
       voteAverage,
-      voteCount);
+      voteCount,
+      status,
+      revenue,
+      video,
+      const DeepCollectionEquality().hash(_genres));
 
   @JsonKey(ignore: true)
   @override
@@ -321,7 +407,11 @@ abstract class _MovieResponseObject implements MovieResponseObject {
           @JsonKey(name: 'poster_path') final String posterPath,
           @JsonKey(name: 'title') final String title,
           @JsonKey(name: 'vote_average') final double voteAverage,
-          @JsonKey(name: 'vote_count') final int voteCount}) =
+          @JsonKey(name: 'vote_count') final int voteCount,
+          @JsonKey(name: 'status') final String status,
+          @JsonKey(name: 'revenue') final int revenue,
+          @JsonKey(name: 'video') final bool video,
+          @JsonKey(name: 'genres') final List<GenreObject> genres}) =
       _$_MovieResponseObject;
 
   factory _MovieResponseObject.fromJson(Map<String, dynamic> json) =
@@ -354,6 +444,18 @@ abstract class _MovieResponseObject implements MovieResponseObject {
   @override
   @JsonKey(name: 'vote_count')
   int get voteCount;
+  @override
+  @JsonKey(name: 'status')
+  String get status;
+  @override
+  @JsonKey(name: 'revenue')
+  int get revenue;
+  @override
+  @JsonKey(name: 'video')
+  bool get video;
+  @override
+  @JsonKey(name: 'genres')
+  List<GenreObject> get genres;
   @override
   @JsonKey(ignore: true)
   _$$_MovieResponseObjectCopyWith<_$_MovieResponseObject> get copyWith =>
