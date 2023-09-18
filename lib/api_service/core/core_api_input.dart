@@ -1,3 +1,4 @@
+import 'package:flutter_config/flutter_config.dart';
 import 'package:mg_api_service/model/base_api_input.dart';
 
 abstract class CoreAPIInput extends BaseAPIInput {
@@ -8,5 +9,5 @@ abstract class CoreAPIInput extends BaseAPIInput {
   });
 
   @override
-  String get baseUrl => 'https://api.themoviedb.org/3';
+  String get baseUrl => FlutterConfig.get('BASE_URL');
 }
